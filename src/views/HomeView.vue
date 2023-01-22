@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import TasksMenu from '@/components/TasksMenu.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+	<div class="wrapper-center">
+		<TasksMenu />
+	</div>
 </template>
