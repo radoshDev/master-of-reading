@@ -1,0 +1,46 @@
+<script setup lang="ts">
+import type { Task } from '@/types/Task'
+
+defineProps<{ task: Task }>()
+</script>
+
+<template>
+	<q-card class="task-card">
+		<q-card-section class="img-wrapper">
+			<q-img
+				:src="task.img.src"
+				:alt="task.img.name"
+				height="100%"
+				fit="contain" />
+		</q-card-section>
+		<q-card-section>
+			<div class="title">{{ task.title }}</div>
+		</q-card-section>
+	</q-card>
+</template>
+
+<style lang="scss" scoped>
+.task-card {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	text-align: center;
+	transition: all 0.3s ease;
+	@media (min-width: 500px) {
+		height: 100%;
+		flex-direction: column;
+	}
+	.img-wrapper {
+		width: 100px;
+		@media (min-width: 500px) {
+			flex: 1;
+		}
+	}
+	.title {
+		font-size: inherit;
+		font-weight: bold;
+	}
+}
+</style>

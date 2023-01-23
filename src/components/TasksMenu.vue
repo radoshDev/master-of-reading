@@ -1,27 +1,17 @@
 <script lang="ts" setup>
 import { ROUTE_NAMES } from '@/constants'
-import { useTaskStore } from '@/stores/taskStore'
-const taskStore = useTaskStore()
+import { tasks } from '@/stores/taskStore'
+import TaskCard from './task/TaskCard.vue'
 </script>
 
 <template>
 	<div class="tasks-menu">
 		<router-link
-			v-for="(task, type) in taskStore.tasks"
+			v-for="(task, type) in tasks"
 			:key="type"
-			:to="{ name: ROUTE_NAMES.task, params: { type } }">
-			<q-card class="menu-item">
-				<q-card-section>
-					<q-img
-						:src="task.img.src"
-						:alt="task.img.name"
-						width="100px"
-						height="100px" />
-				</q-card-section>
-				<q-card-section>
-					<div class="title">{{ task.title }}</div>
-				</q-card-section>
-			</q-card>
+			:to="{ name: ROUTE_NAMES.task, params: { type } }"
+			class="task-wrapper">
+			<TaskCard :task="task" class="menu-task" />
 		</router-link>
 	</div>
 </template>
@@ -33,12 +23,15 @@ const taskStore = useTaskStore()
 	justify-content: center;
 	align-items: center;
 	gap: 25px;
-	.menu-item {
-		width: 250px;
-		text-align: center;
-		.title {
-			font-size: 1.5rem;
-			font-weight: bold;
+	.menu-task {
+		flex-direction: column;
+		height: 200px;
+		width: 300px;
+		font-size: 1.5rem;
+		& > :first-child {
+			width: 100%;
+			height: 100px;
+			flex: 1;
 		}
 	}
 }

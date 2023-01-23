@@ -2,10 +2,22 @@ import type { TASK_TYPE } from '@/constants'
 
 export type TaskType = keyof typeof TASK_TYPE
 
+type Image = {
+	src: string
+	name: string
+}
+
 export type Task = {
 	title: string
-	img: {
-		src: string
-		name: string
-	}
+	img: Image
 }
+
+export type MainTask = Task & { subtasks: Record<string, Task> }
+
+export type TaskScore = {
+	earned: number
+	exercises: string[]
+	index: number
+}
+
+export type TasksScore = Record<TaskType, Record<string, TaskScore>>
