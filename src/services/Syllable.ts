@@ -34,7 +34,7 @@ export class Syllable {
 	getSyllable(): string {
 		const syllable = this.#generateSyllable()
 		const isDuplicate = this.syllablesList.includes(syllable)
-		const exclusionReg = /.ї$|й[июяє]|[гчшщ][яює]/
+		const exclusionReg = /.ї$|й[июяє]|[гжчшщз]є|[гжчшщ]ю/
 		if (isDuplicate || exclusionReg.test(syllable)) {
 			return this.getSyllable()
 		}

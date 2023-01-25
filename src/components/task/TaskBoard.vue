@@ -10,10 +10,6 @@ import TaskBoardProgress from './TaskBoardProgress.vue'
 
 const taskStore = useTaskStore()
 
-const exerciseText = computed(() => {
-	const exerciseIndex = taskStore.exerciseScore.index
-	return taskStore.exerciseScore.exercises[exerciseIndex]
-})
 const isRoundEnd = computed(
 	() =>
 		taskStore.exerciseScore.index === taskStore.exerciseScore.exercises.length
@@ -42,8 +38,8 @@ function handleCloseTask() {
 					</div>
 					<TaskBoardProgress />
 					<div class="main">
-						<div class="sample" v-if="exerciseText">
-							{{ exerciseText.toUpperCase() }}
+						<div class="sample" v-if="taskStore.exerciseText">
+							{{ taskStore.exerciseText.toUpperCase() }}
 						</div>
 						<TaskBoardSalute v-show="isRoundEnd" />
 					</div>
@@ -80,11 +76,8 @@ function handleCloseTask() {
 			align-items: center;
 			justify-content: center;
 			.sample {
-				font-size: 50vw;
+				font-size: min(50vw, 48vh);
 				line-height: 1;
-				@media (min-width: 500px) {
-					font-size: 15rem;
-				}
 			}
 		}
 	}

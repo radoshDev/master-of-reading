@@ -10,7 +10,7 @@
 .container {
 	width: 100%;
 	max-width: 1024px;
-	padding: 20px;
+	padding: 10px 15px 90px;
 	margin-inline: auto;
 	min-height: 100vh;
 }

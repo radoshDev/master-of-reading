@@ -15,7 +15,7 @@ const progress = computed(
 		rounded
 		:value="progress"
 		:animation-speed="1000"
-		class="q-mt-lg">
+		class="q-mt-md">
 		<div class="absolute-full flex flex-center">
 			<q-badge
 				class="badge"

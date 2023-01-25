@@ -97,6 +97,7 @@ export const tasks: Record<TaskType, MainTask> = {
 }
 
 export const useTaskStore = defineStore('task', () => {
+	const options = ref({ mute: false, upper: true })
 	const taskType = ref<TaskType>('letters')
 	const selectedExercise = ref<Record<TaskType, string>>({
 		letters: 'mix',
@@ -133,6 +134,11 @@ export const useTaskStore = defineStore('task', () => {
 		},
 	})
 
+	const exerciseText = computed(() => {
+		const exerciseIndex = exerciseScore.value.index
+		return exerciseScore.value.exercises[exerciseIndex]
+	})
+
 	function setExerciseType(subTaskType: string) {
 		selectedExercise.value[taskType.value] = subTaskType
 	}
@@ -156,12 +162,14 @@ export const useTaskStore = defineStore('task', () => {
 	}
 
 	return {
+		options,
 		showTask,
 		taskType,
 		tasksScore,
-		exerciseScore,
 		selectedExercise,
 		exerciseType,
+		exerciseScore,
+		exerciseText,
 		setExerciseType,
 		startTask,
 		nextRound,
