@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { MainTask, TaskType, TasksScore } from '@/types/Task'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { generateTask } from '@/services/generateTask'
 
 export const tasks: Record<TaskType, MainTask> = {
 	letters: {
@@ -96,6 +97,7 @@ export const tasks: Record<TaskType, MainTask> = {
 }
 
 export const useTaskStore = defineStore('task', () => {
+	const taskType = ref<TaskType>('letters')
 	const selectedExercise = ref<Record<TaskType, string>>({
 		letters: 'mix',
 		syllables: 'mix',
@@ -111,13 +113,57 @@ export const useTaskStore = defineStore('task', () => {
 		syllables: {
 			vowelFirst: { index: 0, earned: 0, exercises: [] },
 			consonantFirst: { index: 0, earned: 0, exercises: [] },
-			mix: { index: 0, earned: 0, exercises: ['AB', 'CA', 'BA'] },
+			mix: { index: 0, earned: 0, exercises: [] },
 		},
-		words: {},
+		words: {
+			three: { index: 0, earned: 0, exercises: [] },
+			four: { index: 0, earned: 0, exercises: [] },
+			five: { index: 0, earned: 0, exercises: [] },
+		},
 	})
 
-	function setExerciseType(type: TaskType, subTaskType: string) {
-		selectedExercise.value[type] = subTaskType
+	const exerciseType = computed(() => selectedExercise.value[taskType.value])
+
+	const exerciseScore = computed({
+		get() {
+			return tasksScore.value[taskType.value][exerciseType.value]
+		},
+		set(newExerciseScore) {
+			tasksScore.value[taskType.value][exerciseType.value] = newExerciseScore
+		},
+	})
+
+	function setExerciseType(subTaskType: string) {
+		selectedExercise.value[taskType.value] = subTaskType
 	}
-	return { showTask, selectedExercise, tasksScore, setExerciseType }
+
+	function startTask() {
+		exerciseScore.value.earned = 0
+		exerciseScore.value.index = 0
+		exerciseScore.value.exercises = generateTask(
+			taskType.value,
+			exerciseType.value
+		)
+		showTask.value = true
+	}
+
+	function nextRound() {
+		exerciseScore.value.index = 0
+		exerciseScore.value.exercises = generateTask(
+			taskType.value,
+			exerciseType.value
+		)
+	}
+
+	return {
+		showTask,
+		taskType,
+		tasksScore,
+		exerciseScore,
+		selectedExercise,
+		exerciseType,
+		setExerciseType,
+		startTask,
+		nextRound,
+	}
 })

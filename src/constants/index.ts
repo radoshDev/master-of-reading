@@ -1,3 +1,5 @@
+export const POKEMONS_STORAGE_KEY = 'pokemons'
+
 export const ROUTE_NAMES = {
 	home: 'home',
 	about: 'about',
@@ -10,11 +12,12 @@ export const TASK_TYPE = {
 	words: 'words',
 }
 
-export const vowels = ['а', 'е', 'о', 'у', 'і', 'и', 'я', 'ю']
+export const vowels = ['а', 'е', 'о', 'у', 'і', 'и', 'я', 'ю', 'є', 'ї']
 export const consonants = [
 	'б',
 	'в',
 	'г',
+	'ґ',
 	'д',
 	'ж',
 	'з',
@@ -33,33 +36,4 @@ export const consonants = [
 	'ч',
 	'ш',
 	'щ',
-]
-
-export const exclusions = [
-	'бя',
-	'бю',
-	'вя',
-	'вю',
-	'гя',
-	'гю',
-	'гя',
-	'гю',
-	'жю',
-	'жя',
-	'кю',
-	'кя',
-	'пя',
-	'пю',
-	'чя',
-	'чю',
-	'хя',
-	'хю',
-	'фя',
-	'шю',
-	'шя',
-	'щю',
-	'щя',
-	'йи',
-	'йю',
-	'йя',
 ]

@@ -26,11 +26,11 @@ defineProps<{ task: Task }>()
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	text-align: center;
 	transition: all 0.3s ease;
 	@media (min-width: 500px) {
 		height: 100%;
 		flex-direction: column;
+		text-align: center;
 	}
 	.img-wrapper {
 		width: 100px;

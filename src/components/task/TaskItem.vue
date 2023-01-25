@@ -6,23 +6,23 @@ import TaskBoard from '@/components/task/TaskBoard.vue'
 import { ROUTE_NAMES } from '@/constants'
 import { useTaskStore } from '@/stores/taskStore'
 import { tasks } from '@/stores/taskStore'
-import type { TaskType } from '@/types/Task'
-import { useRoute } from 'vue-router'
+import { usePokemonStore } from '@/stores/pokemonStore'
 
 const taskStore = useTaskStore()
-const route = useRoute()
-let taskType = (
-	typeof route.params['type'] === 'string' ? route.params['type'] : ''
-) as TaskType
+const pokemonStore = usePokemonStore()
 
-const exercise = tasks[taskType]
+const exercise = computed(() => tasks[taskStore.taskType])
 
-const showContinueBtn = computed(() => {
-	const exerciseType = taskStore.selectedExercise[taskType]
-	return taskStore.tasksScore[taskType][exerciseType]?.exercises.length > 0
-})
+const showContinueBtn = computed(
+	() => taskStore.exerciseScore?.exercises.length > 0
+)
 
 function handleStartTask() {
+	pokemonStore.setIndex()
+	taskStore.startTask()
+}
+
+function handleContinueTask() {
 	taskStore.showTask = true
 }
 </script>
@@ -33,41 +33,41 @@ function handleStartTask() {
 			<q-btn
 				icon="arrow_back_ios_new"
 				flat
-				size="1.2rem"
+				size="1.05rem"
 				:to="{ name: ROUTE_NAMES.home }" />
 			<h2 class="title">{{ exercise.title }}</h2>
 		</div>
-		<ExercisesList :sub-tasks="exercise.subtasks" :task-type="taskType" />
+		<ExercisesList :sub-tasks="exercise.subtasks" />
 		<div class="actions">
 			<q-btn
-				label="Продовжити"
-				color="yellow-9"
-				class="btn"
-				size="1.2rem"
-				v-if="showContinueBtn" />
-			<q-btn
+				v-if="taskStore.exerciseScore"
+				@click="handleStartTask"
 				label="Початок"
 				color="blue-8"
 				class="btn"
-				size="1.2rem"
-				@click="handleStartTask" />
+				size="1.05rem" />
+			<q-btn
+				@click="handleContinueTask"
+				label="Продовжити"
+				color="yellow-9"
+				class="btn"
+				size="1.05rem"
+				v-if="showContinueBtn" />
 		</div>
-		<TaskBoard :task-type="taskType" />
+		<TaskBoard />
 	</div>
 	<NoTask v-else />
 </template>
 
 <style scoped lang="scss">
 .task {
-	text-align: center;
-	padding: 1.5rem 0;
 	.header {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
 		margin: 0 0 2rem;
 		.title {
-			font-size: 3rem;
+			font-size: 2.5rem;
 			font-weight: bold;
 			margin: 0;
 		}

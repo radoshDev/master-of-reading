@@ -1,18 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useTaskStore } from '@/stores/taskStore'
-import type { MainTask, TaskType } from '@/types/Task'
+import type { MainTask } from '@/types/Task'
 import TaskCard from './TaskCard.vue'
 
-const props = defineProps<{
+defineProps<{
 	subTasks: MainTask['subtasks']
-	taskType: TaskType
 }>()
-
-const selectedExercise = computed(
-	() => taskStore.selectedExercise[props.taskType]
-)
-
 const taskStore = useTaskStore()
 </script>
 
@@ -22,10 +15,12 @@ const taskStore = useTaskStore()
 			class="subtask-item"
 			v-for="(task, subtype) in subTasks"
 			:key="subtype"
-			@click="taskStore.setExerciseType(taskType, subtype)">
+			@click="taskStore.setExerciseType(subtype)">
 			<TaskCard
 				:task="task"
-				:class="{ ['bg-light-green-11']: selectedExercise === subtype }" />
+				:class="{
+					['bg-light-green-11']: taskStore.exerciseType === subtype,
+				}" />
 		</div>
 	</div>
 </template>

@@ -3,20 +3,21 @@ import { useTaskStore } from '@/stores/taskStore'
 import LayoutMain from '@/components/LayoutMain.vue'
 import TaskBoardOptions from '@/components/task/TaskBoardOptions.vue'
 import CoinSvg from '@/components/ui/CoinSvg.vue'
-import type { TaskType } from '@/types/Task'
 import { computed } from 'vue'
 import TaskBoardActions from './TaskBoardActions.vue'
-
-const props = defineProps<{ taskType: TaskType }>()
+import TaskBoardSalute from './TaskBoardSalute.vue'
+import TaskBoardProgress from './TaskBoardProgress.vue'
 
 const taskStore = useTaskStore()
 
-const exercise = computed(() => {
-	const exerciseType = taskStore.selectedExercise[props.taskType]
-	const exerciseObj = taskStore.tasksScore[props.taskType][exerciseType]
-	const exerciseIndex = exerciseObj.index
-	return exerciseObj.exercises[exerciseIndex]
+const exerciseText = computed(() => {
+	const exerciseIndex = taskStore.exerciseScore.index
+	return taskStore.exerciseScore.exercises[exerciseIndex]
 })
+const isRoundEnd = computed(
+	() =>
+		taskStore.exerciseScore.index === taskStore.exerciseScore.exercises.length
+)
 
 function handleCloseTask() {
 	taskStore.showTask = false
@@ -36,11 +37,17 @@ function handleCloseTask() {
 							color="negative"
 							size="md"
 							@click="handleCloseTask" />
-						<CoinSvg :count="0" class="coin" />
+						<CoinSvg :count="taskStore.exerciseScore.earned" class="coin" />
 						<TaskBoardOptions />
 					</div>
-					<div class="sample">{{ exercise }}</div>
-					<TaskBoardActions :task-type="taskType" />
+					<TaskBoardProgress />
+					<div class="main">
+						<div class="sample" v-if="exerciseText">
+							{{ exerciseText.toUpperCase() }}
+						</div>
+						<TaskBoardSalute v-show="isRoundEnd" />
+					</div>
+					<TaskBoardActions />
 				</LayoutMain>
 			</q-card>
 		</Transition>
@@ -49,13 +56,12 @@ function handleCloseTask() {
 
 <style scoped lang="scss">
 .task-board {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	box-sizing: border-box;
-	padding: 1rem 0 2rem;
 	.task-board-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -68,13 +74,18 @@ function handleCloseTask() {
 				width: 100px;
 			}
 		}
-		.sample {
+		.main {
 			flex: 1;
-
-			font-size: 50vw;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			.sample {
+				font-size: 50vw;
+				line-height: 1;
+				@media (min-width: 500px) {
+					font-size: 15rem;
+				}
+			}
 		}
 	}
 }

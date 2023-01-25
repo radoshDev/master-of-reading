@@ -14,10 +14,12 @@ export type Task = {
 
 export type MainTask = Task & { subtasks: Record<string, Task> }
 
-export type TaskScore = {
+export type ExerciseScore = {
 	earned: number
 	exercises: string[]
 	index: number
 }
 
-export type TasksScore = Record<TaskType, Record<string, TaskScore>>
+export type TasksScore = Record<TaskType, Record<string, ExerciseScore>>
+
+export type SyllableType = 'mix' | 'vowelFirst' | 'consonantFirst'

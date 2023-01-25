@@ -1,21 +1,34 @@
 <script setup lang="ts">
 import { useTaskStore } from '@/stores/taskStore'
-import type { TaskType } from '@/types/Task'
 import { computed } from 'vue'
 
-const props = defineProps<{ taskType: TaskType }>()
 const taskStore = useTaskStore()
 
-const exercise = computed(() => {
-	const selectedExercise = taskStore.selectedExercise[props.taskType]
-	return taskStore.tasksScore[props.taskType][selectedExercise]
-})
+const isRoundEnd = computed(
+	() =>
+		taskStore.exerciseScore.index === taskStore.exerciseScore.exercises.length
+)
 
 function handlePrev() {
-	exercise.value.index -= 1
+	const currentIndex = taskStore.exerciseScore.index
+	const taskLength = taskStore.exerciseScore.exercises.length
+	if (currentIndex === taskLength) {
+		taskStore.exerciseScore.earned -= 1
+	}
+	taskStore.exerciseScore.index -= 1
 }
 function handleNext() {
-	exercise.value.index += 1
+	const currentIndex = taskStore.exerciseScore.index
+	const taskLength = taskStore.exerciseScore.exercises.length
+	taskStore.exerciseScore.index = currentIndex + 1
+
+	if (currentIndex + 1 === taskLength) {
+		taskStore.exerciseScore.earned += 1
+	}
+}
+
+function handleMore() {
+	taskStore.nextRound()
 }
 </script>
 
@@ -25,13 +38,14 @@ function handleNext() {
 			@click="handlePrev"
 			icon="arrow_back_ios"
 			label="Назад"
-			size="1.2rem"
-			:disable="exercise.index === 0" />
+			size="1.1rem"
+			:disable="taskStore.exerciseScore.index === 0" />
 		<q-btn
-			v-if="exercise.index === exercise.exercises.length"
+			@click="handleMore"
+			v-if="isRoundEnd"
 			label="Ще"
 			icon-right="add"
-			size="1.2rem"
+			size="1.1rem"
 			text-color="black"
 			color="green-13" />
 		<q-btn
@@ -41,7 +55,7 @@ function handleNext() {
 			label="Вперед"
 			color="blue-5"
 			text-color="black"
-			size="1.2rem" />
+			size="1.1rem" />
 	</div>
 </template>
 
@@ -51,11 +65,5 @@ function handleNext() {
 	gap: 25px;
 	justify-content: center;
 	align-items: center;
-	.q-btn {
-		.block {
-			line-height: 1;
-			font-weight: 700;
-		}
-	}
 }
 </style>
