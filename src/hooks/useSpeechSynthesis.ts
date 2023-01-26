@@ -44,8 +44,6 @@ const useSpeechSynthesis: UseSpeechSynthesis = () => {
 	})
 
 	const speak = (args: SpeakOptions): void => {
-		console.log('speak runs')
-
 		const { voiceLang, text, rate = 1, pitch = 1, volume = 1, onEnd } = args
 
 		speaking.value = true
@@ -56,15 +54,11 @@ const useSpeechSynthesis: UseSpeechSynthesis = () => {
 		}
 
 		if (taskStore.options.mute || !supported.value || !text) {
-			console.log('Problem')
-
 			setTimeout(handleEnd, 500)
 			return
 		}
 
 		const voice = voices.value.find(({ lang }) => voiceLang === lang)
-
-		console.log(voice)
 
 		const utterance = new window.SpeechSynthesisUtterance()
 		utterance.voice = voice || null

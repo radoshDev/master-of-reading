@@ -13,5 +13,7 @@
 	padding: 10px 15px 90px;
 	margin-inline: auto;
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 </style>

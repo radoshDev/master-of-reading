@@ -136,6 +136,9 @@ export const useTaskStore = defineStore('task', () => {
 
 	const exerciseText = computed(() => {
 		const exerciseIndex = exerciseScore.value.index
+		if (options.value.upper) {
+			return exerciseScore.value.exercises[exerciseIndex]?.toUpperCase()
+		}
 		return exerciseScore.value.exercises[exerciseIndex]
 	})
 

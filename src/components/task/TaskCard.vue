@@ -11,6 +11,7 @@ defineProps<{ task: Task }>()
 				:src="task.img.src"
 				:alt="task.img.name"
 				height="100%"
+				loading="eager"
 				fit="contain" />
 		</q-card-section>
 		<q-card-section>

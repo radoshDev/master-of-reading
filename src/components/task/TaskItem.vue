@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import NoTask from '@/components/task/NoTask.vue'
 import ExercisesList from '@/components/task/ExercisesList.vue'
 import TaskBoard from '@/components/task/TaskBoard.vue'
 import { ROUTE_NAMES } from '@/constants'
@@ -28,7 +27,7 @@ function handleContinueTask() {
 </script>
 
 <template>
-	<div class="task" v-if="exercise">
+	<div class="task">
 		<div class="header">
 			<q-btn
 				icon="arrow_back_ios_new"
@@ -56,7 +55,6 @@ function handleContinueTask() {
 		</div>
 		<TaskBoard />
 	</div>
-	<NoTask v-else />
 </template>
 
 <style scoped lang="scss">

@@ -3,17 +3,11 @@ import { useTaskStore } from '@/stores/taskStore'
 import LayoutMain from '@/components/LayoutMain.vue'
 import TaskBoardOptions from '@/components/task/TaskBoardOptions.vue'
 import CoinSvg from '@/components/ui/CoinSvg.vue'
-import { computed } from 'vue'
 import TaskBoardActions from './TaskBoardActions.vue'
-import TaskBoardSalute from './TaskBoardSalute.vue'
 import TaskBoardProgress from './TaskBoardProgress.vue'
+import TaskBoardContent from './TaskBoardContent.vue'
 
 const taskStore = useTaskStore()
-
-const isRoundEnd = computed(
-	() =>
-		taskStore.exerciseScore.index === taskStore.exerciseScore.exercises.length
-)
 
 function handleCloseTask() {
 	taskStore.showTask = false
@@ -37,12 +31,7 @@ function handleCloseTask() {
 						<TaskBoardOptions />
 					</div>
 					<TaskBoardProgress />
-					<div class="main">
-						<div class="sample" v-if="taskStore.exerciseText">
-							{{ taskStore.exerciseText.toUpperCase() }}
-						</div>
-						<TaskBoardSalute v-show="isRoundEnd" />
-					</div>
+					<TaskBoardContent />
 					<TaskBoardActions />
 				</LayoutMain>
 			</q-card>
@@ -68,16 +57,6 @@ function handleCloseTask() {
 			align-items: flex-start;
 			.coin {
 				width: 100px;
-			}
-		}
-		.main {
-			flex: 1;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			.sample {
-				font-size: min(50vw, 48vh);
-				line-height: 1;
 			}
 		}
 	}
