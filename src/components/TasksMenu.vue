@@ -23,15 +23,28 @@ import TaskCard from './task/TaskCard.vue'
 	justify-content: center;
 	align-items: center;
 	gap: 25px;
-	.menu-task {
-		flex-direction: column;
-		height: 200px;
-		width: 300px;
-		font-size: 1.5rem;
-		& > :first-child {
-			width: 100%;
-			height: 100px;
-			flex: 1;
+	.task-wrapper {
+		width: 100%;
+		@media (min-width: 500px) {
+			width: auto;
+		}
+		.menu-task {
+			font-size: 1.8rem;
+			height: 125px;
+			& > :first-child {
+				height: 100%;
+			}
+			@media (min-width: 500px) {
+				flex-direction: column;
+				height: 200px;
+				width: 300px;
+				font-size: 1.5rem;
+				& > :first-child {
+					width: 100%;
+					height: 100px;
+					flex: 1;
+				}
+			}
 		}
 	}
 }

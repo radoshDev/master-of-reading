@@ -28,6 +28,7 @@ defineProps<{ task: Task }>()
 	flex-direction: row;
 	align-items: center;
 	transition: all 0.3s ease;
+	cursor: pointer;
 	@media (min-width: 500px) {
 		height: 100%;
 		flex-direction: column;
