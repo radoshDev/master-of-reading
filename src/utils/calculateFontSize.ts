@@ -3,7 +3,7 @@ export const calculateFontSize = (wordLength: number): string => {
 		return '50vw'
 	}
 	if (wordLength === 3) {
-		return '40vw'
+		return '39vw'
 	}
 	if (wordLength === 4) {
 		return '30vw'
