@@ -16,12 +16,20 @@ function toggleLetterCase() {
 			<div class="menu-content">
 				<q-btn
 					@click="toggleMute"
-					:icon="taskStore.options.mute ? 'volume_up' : 'volume_off'"
+					round
+					:ripple="false"
+					:color="taskStore.options.mute ? 'red-7' : 'blue-14'"
+					:icon="taskStore.options.mute ? 'volume_off' : 'volume_up'"
 					flat />
 				<q-btn
 					@click="toggleLetterCase"
+					round
+					:ripple="false"
+					color="blue-14"
 					no-caps
-					:label="taskStore.options.upper ? 'aa' : 'AA'"
+					:label="taskStore.options.upper ? 'AA' : 'aa'"
+					size="1rem"
+					padding="0 10px"
 					flat />
 			</div>
 		</q-menu>
@@ -33,6 +41,6 @@ function toggleLetterCase() {
 	display: flex;
 	gap: 10px;
 	padding: 10px;
-	min-width: 150px;
+	min-width: 100px;
 }
 </style>

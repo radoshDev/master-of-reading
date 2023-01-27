@@ -33,4 +33,9 @@ export const routes: RouteRecord[] = [
 			return next({ name: 'home' })
 		},
 	},
+	{
+		path: '/pokemons',
+		name: 'pokemons',
+		component: () => import('@/views/PokemonsView.vue'),
+	},
 ]

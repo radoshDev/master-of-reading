@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia'
-import type { MainTask, TaskType, TasksScore } from '@/types/Task'
+import type {
+	MainTask,
+	TaskType,
+	TasksScore,
+	SyllableType,
+	WordType,
+} from '@/types/Task'
 import { computed, ref } from 'vue'
-import { generateTask } from '@/services/generateTask'
+import { Syllable } from '@/services/Syllable'
+import { useWordStore } from './wordStore'
+import { generateWords } from '@/services/generateWords'
 
 export const tasks: Record<TaskType, MainTask> = {
 	letters: {
@@ -10,22 +18,22 @@ export const tasks: Record<TaskType, MainTask> = {
 			vowels: {
 				title: 'Голосні',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg',
-					name: 'bulbasaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/39.svg',
+					name: 'jigglypuff',
 				},
 			},
 			consonants: {
 				title: 'Приголосні',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg',
-					name: 'ivysaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/4.svg',
+					name: 'charmander',
 				},
 			},
 			mix: {
 				title: 'Змішано',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg',
-					name: 'venusaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/60.svg',
+					name: 'poliwag',
 				},
 			},
 		},
@@ -40,22 +48,22 @@ export const tasks: Record<TaskType, MainTask> = {
 			vowelFirst: {
 				title: 'Перша голосна',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg',
-					name: 'bulbasaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/33.svg',
+					name: 'nidorino',
 				},
 			},
 			consonantFirst: {
 				title: 'Перша приголосна',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg',
-					name: 'ivysaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/134.svg',
+					name: 'vaporeon',
 				},
 			},
 			mix: {
 				title: 'Змішано',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg',
-					name: 'venusaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/61.svg',
+					name: 'poliwhirl',
 				},
 			},
 		},
@@ -70,8 +78,8 @@ export const tasks: Record<TaskType, MainTask> = {
 			three: {
 				title: '3 букви',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg',
-					name: 'bulbasaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/85.svg',
+					name: 'dodrio',
 				},
 			},
 			four: {
@@ -84,8 +92,15 @@ export const tasks: Record<TaskType, MainTask> = {
 			five: {
 				title: '5 букв',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/3.svg',
-					name: 'venusaur',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/102.svg',
+					name: 'exeggcute',
+				},
+			},
+			mix: {
+				title: 'Змішано',
+				img: {
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/62.svg',
+					name: 'poliwrath',
 				},
 			},
 		},
@@ -97,7 +112,8 @@ export const tasks: Record<TaskType, MainTask> = {
 }
 
 export const useTaskStore = defineStore('task', () => {
-	const options = ref({ mute: false, upper: true })
+	const wordStore = useWordStore()
+	const options = ref({ mute: false, upper: true, slideBack: false })
 	const taskType = ref<TaskType>('letters')
 	const selectedExercise = ref<Record<TaskType, string>>({
 		letters: 'mix',
@@ -120,6 +136,7 @@ export const useTaskStore = defineStore('task', () => {
 			three: { index: 0, earned: 0, exercises: [] },
 			four: { index: 0, earned: 0, exercises: [] },
 			five: { index: 0, earned: 0, exercises: [] },
+			mix: { index: 0, earned: 0, exercises: [] },
 		},
 	})
 
@@ -136,9 +153,6 @@ export const useTaskStore = defineStore('task', () => {
 
 	const exerciseText = computed(() => {
 		const exerciseIndex = exerciseScore.value.index
-		if (options.value.upper) {
-			return exerciseScore.value.exercises[exerciseIndex]?.toUpperCase()
-		}
 		return exerciseScore.value.exercises[exerciseIndex]
 	})
 
@@ -146,22 +160,33 @@ export const useTaskStore = defineStore('task', () => {
 		selectedExercise.value[taskType.value] = subTaskType
 	}
 
+	function generateTask() {
+		if (taskType.value === 'letters') {
+			exerciseScore.value.exercises = ['a', 'c']
+		}
+		if (taskType.value === 'syllables') {
+			exerciseScore.value.exercises = new Syllable(
+				exerciseType.value as SyllableType
+			).generateSyllables(10)
+		}
+		if (taskType.value === 'words' && wordStore.words.data) {
+			exerciseScore.value.exercises = generateWords(
+				wordStore.words.data,
+				exerciseType.value as WordType
+			)
+		}
+	}
+
 	function startTask() {
 		exerciseScore.value.earned = 0
 		exerciseScore.value.index = 0
-		exerciseScore.value.exercises = generateTask(
-			taskType.value,
-			exerciseType.value
-		)
+		generateTask()
 		showTask.value = true
 	}
 
 	function nextRound() {
 		exerciseScore.value.index = 0
-		exerciseScore.value.exercises = generateTask(
-			taskType.value,
-			exerciseType.value
-		)
+		generateTask()
 	}
 
 	return {

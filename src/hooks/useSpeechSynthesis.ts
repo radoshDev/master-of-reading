@@ -1,5 +1,4 @@
 import { ref, onMounted, type Ref } from 'vue'
-import { useTaskStore } from '@/stores/taskStore'
 
 type SpeakOptions = {
 	pitch?: number
@@ -7,6 +6,7 @@ type SpeakOptions = {
 	text: string
 	voiceLang?: 'ru-RU'
 	volume?: number
+	isMute?: boolean
 	onEnd?: () => void
 }
 
@@ -17,7 +17,6 @@ type UseSpeechSynthesis = () => {
 }
 
 const useSpeechSynthesis: UseSpeechSynthesis = () => {
-	const taskStore = useTaskStore()
 	const voices = ref<SpeechSynthesisVoice[]>([])
 	const speaking = ref(false)
 	const supported = ref(false)
@@ -44,7 +43,15 @@ const useSpeechSynthesis: UseSpeechSynthesis = () => {
 	})
 
 	const speak = (args: SpeakOptions): void => {
-		const { voiceLang, text, rate = 1, pitch = 1, volume = 1, onEnd } = args
+		const {
+			voiceLang,
+			text,
+			isMute = false,
+			rate = 1,
+			pitch = 1,
+			volume = 1,
+			onEnd,
+		} = args
 
 		speaking.value = true
 
@@ -53,8 +60,8 @@ const useSpeechSynthesis: UseSpeechSynthesis = () => {
 			onEnd?.()
 		}
 
-		if (taskStore.options.mute || !supported.value || !text) {
-			setTimeout(handleEnd, 500)
+		if (isMute || !supported.value || !text) {
+			handleEnd()
 			return
 		}
 

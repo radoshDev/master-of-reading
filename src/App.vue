@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import LayoutMain from '@/components/LayoutMain.vue'
 import { onMounted } from 'vue'
-import { usePokemonStore } from './stores/pokemonStore'
+import LayoutMain from '@/components/LayoutMain.vue'
+import { usePokemonStore } from '@/stores/pokemonStore'
+import { useWordStore } from '@/stores/wordStore'
 
 const pokemonStore = usePokemonStore()
+const wordStore = useWordStore()
 
 onMounted(() => {
 	pokemonStore.setPokemons()
+	wordStore.fetchWords()
 })
 </script>
 

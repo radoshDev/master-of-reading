@@ -4,6 +4,7 @@ export const ROUTE_NAMES = {
 	home: 'home',
 	about: 'about',
 	task: 'task',
+	pokemons: 'pokemons',
 } as const
 
 export const TASK_TYPE = {

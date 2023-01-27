@@ -15,6 +15,7 @@ const isRoundEnd = computed(
 )
 
 function handlePrev() {
+	taskStore.options.slideBack = true
 	const currentIndex = taskStore.exerciseScore.index
 	const taskLength = taskStore.exerciseScore.exercises.length
 	if (currentIndex === taskLength) {
@@ -27,7 +28,9 @@ function handleNext() {
 	speak({
 		text: convertToRussish(taskStore.exerciseText),
 		voiceLang: 'ru-RU',
+		isMute: taskStore.options.mute,
 		onEnd: () => {
+			taskStore.options.slideBack = false
 			const currentIndex = taskStore.exerciseScore.index
 			const taskLength = taskStore.exerciseScore.exercises.length
 			taskStore.exerciseScore.index = currentIndex + 1
