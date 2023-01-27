@@ -5,11 +5,13 @@ import type {
 	TasksScore,
 	SyllableType,
 	WordType,
+	LetterType,
 } from '@/types/Task'
 import { computed, ref } from 'vue'
 import { Syllable } from '@/services/Syllable'
-import { useWordStore } from './wordStore'
 import { generateWords } from '@/services/generateWords'
+import { generateLetters } from '@/services/generateLetters'
+import { useWordStore } from './wordStore'
 
 export const tasks: Record<TaskType, MainTask> = {
 	letters: {
@@ -162,7 +164,9 @@ export const useTaskStore = defineStore('task', () => {
 
 	function generateTask() {
 		if (taskType.value === 'letters') {
-			exerciseScore.value.exercises = ['a', 'c']
+			exerciseScore.value.exercises = generateLetters(
+				exerciseType.value as LetterType
+			)
 		}
 		if (taskType.value === 'syllables') {
 			exerciseScore.value.exercises = new Syllable(

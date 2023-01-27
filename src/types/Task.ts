@@ -29,3 +29,5 @@ export type WordHeader = 'three' | 'four' | 'five' | 'difficult'
 export type WordsList = Record<WordHeader, string[]>
 
 export type WordType = WordHeader | 'mix'
+
+export type LetterType = 'vowels' | 'consonants' | 'mix'
