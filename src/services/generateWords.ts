@@ -3,6 +3,10 @@ import { getRandomIndex } from '@/utils/getRandomIndex'
 
 export const generateWords = (list: WordsList, type: WordType): string[] => {
 	const wordsList = { ...list } as Record<WordType, string[]>
+	let exerciseLength = 5
+
+	if (type === 'three') exerciseLength = 8
+	if (type === 'four') exerciseLength = 6
 
 	if (type === 'mix') {
 		const mixArray: string[] = []
@@ -14,7 +18,7 @@ export const generateWords = (list: WordsList, type: WordType): string[] => {
 
 	const array: string[] = []
 	let i = 0
-	while (i < 5) {
+	while (i < exerciseLength) {
 		const word = wordsList[type][getRandomIndex(wordsList[type].length)]
 		if (!array.includes(word)) {
 			array.push(word)
