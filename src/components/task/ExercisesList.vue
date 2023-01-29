@@ -10,7 +10,7 @@ const taskStore = useTaskStore()
 </script>
 
 <template>
-	<div class="subtasks">
+	<div class="exercises-list">
 		<div
 			class="subtask-item"
 			v-for="(task, subtype) in subTasks"
@@ -26,20 +26,24 @@ const taskStore = useTaskStore()
 </template>
 
 <style scoped lang="scss">
-.subtasks {
+.exercises-list {
+	min-height: 0;
+	overflow-x: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 	@media (min-width: 500px) {
 		flex-direction: row;
 		justify-content: center;
+		align-items: center;
 	}
 	.subtask-item {
 		width: 100%;
 		font-size: 1.5rem;
 		@media (min-width: 500px) {
 			max-width: 200px;
+			height: 250px;
 		}
 	}
 }
