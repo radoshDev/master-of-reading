@@ -14,13 +14,16 @@ function handleSpeak() {
 </script>
 
 <template>
-	<div class="salute" @click="handleSpeak">
-		<q-img
-			:src="pokemon.dreamworld"
-			:alt="pokemon.name"
-			loading="eager"
-			class="salute-img"
-			fit="contain" />
+	<div class="salute">
+		<div @click="handleSpeak">
+			<q-img
+				:src="pokemon.dreamworld"
+				:alt="pokemon.name"
+				loading="eager"
+				class="salute-img"
+				fit="contain" />
+		</div>
+		<q-btn flat round icon="help" color="orange-13" />
 		<div class="title">{{ pokemon.name }}</div>
 	</div>
 </template>

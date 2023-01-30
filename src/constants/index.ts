@@ -1,10 +1,12 @@
 export const POKEMONS_STORAGE_KEY = 'pokemons'
+export const POKEMONS_AMOUNT = 630
 
 export const ROUTE_NAMES = {
 	home: 'home',
 	about: 'about',
 	task: 'task',
 	pokemons: 'pokemons',
+	pokemon: 'pokemon',
 } as const
 
 export const TASK_TYPE = {

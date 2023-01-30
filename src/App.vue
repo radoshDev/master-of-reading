@@ -8,7 +8,7 @@ const pokemonStore = usePokemonStore()
 const wordStore = useWordStore()
 
 onMounted(() => {
-	pokemonStore.setPokemons()
+	pokemonStore.fetchPokemons()
 	wordStore.fetchWords()
 })
 </script>

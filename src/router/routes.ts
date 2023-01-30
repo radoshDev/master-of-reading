@@ -26,7 +26,9 @@ export const routes: RouteRecord[] = [
 		beforeEnter: (to, from, next) => {
 			const taskStore = useTaskStore()
 			const taskType = to.params['type']
-			if (typeof taskType === 'string') {
+			const taskTypes = Object.keys(taskStore.selectedExercise)
+
+			if (typeof taskType === 'string' && taskTypes.indexOf(taskType) !== -1) {
 				taskStore.taskType = taskType as TaskType
 				return next()
 			}
@@ -37,5 +39,10 @@ export const routes: RouteRecord[] = [
 		path: '/pokemons',
 		name: 'pokemons',
 		component: () => import('@/views/PokemonsView.vue'),
+	},
+	{
+		path: '/pokemons/:id',
+		name: 'pokemon',
+		component: () => import('@/views/PokemonView.vue'),
 	},
 ]

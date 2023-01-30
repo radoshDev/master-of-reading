@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { POKEMONS_STORAGE_KEY } from '@/constants'
+import { POKEMONS_STORAGE_KEY, POKEMONS_AMOUNT } from '@/constants'
 import type { Pokemon } from '@/types/Pokemon'
 import { getPokemons } from '@/api/pokemonApi'
 import { getRandomIndex } from '@/utils/getRandomIndex'
@@ -9,7 +9,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
 	const pokemons = ref<Pokemon[]>([])
 	const index = ref(0)
 
-	async function setPokemons() {
+	async function fetchPokemons() {
 		const savedPokemons = localStorage.getItem(POKEMONS_STORAGE_KEY)
 		if (savedPokemons) {
 			pokemons.value = JSON.parse(savedPokemons)
@@ -21,8 +21,11 @@ export const usePokemonStore = defineStore('pokemon', () => {
 	}
 
 	function setIndex() {
-		index.value = getRandomIndex(pokemons.value.length)
+		const daysInWeek = 7
+		const maxLength = POKEMONS_AMOUNT / daysInWeek
+		const startIndex = new Date().getDay() * maxLength
+		index.value = getRandomIndex(startIndex, maxLength)
 	}
 
-	return { index, pokemons, setPokemons, setIndex }
+	return { index, pokemons, fetchPokemons, setIndex }
 })
