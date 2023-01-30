@@ -18,7 +18,7 @@ const fontSize = computed(
 </script>
 
 <template>
-	<div class="main wrapper-center">
+	<div class="task-board-content wrapper-center">
 		<Transition :name="taskStore.options.slideBack ? 'slideback' : 'slide'">
 			<div
 				:class="{ 'text-uppercase': taskStore.options.upper }"
@@ -36,7 +36,7 @@ const fontSize = computed(
 </template>
 
 <style scoped lang="scss">
-.main {
+.task-board-content {
 	position: relative;
 	.sample {
 		position: absolute;

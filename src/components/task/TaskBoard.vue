@@ -2,10 +2,10 @@
 import { useTaskStore } from '@/stores/taskStore'
 import LayoutMain from '@/components/LayoutMain.vue'
 import TaskBoardOptions from '@/components/task/TaskBoardOptions.vue'
-import CoinSvg from '@/components/ui/CoinSvg.vue'
 import TaskBoardActions from './TaskBoardActions.vue'
 import TaskBoardProgress from './TaskBoardProgress.vue'
 import TaskBoardContent from './TaskBoardContent.vue'
+import TaskBoardResult from './TaskBoardResult.vue'
 
 const taskStore = useTaskStore()
 
@@ -18,19 +18,21 @@ function handleCloseTask() {
 	<Teleport to="body">
 		<Transition name="show">
 			<q-card class="task-board" v-if="taskStore.showTask">
-				<LayoutMain class="task-board-wrapper">
+				<LayoutMain>
 					<div class="header">
-						<q-btn
-							class="q-mt-sm"
-							icon="close"
-							round
-							color="negative"
-							size="md"
-							@click="handleCloseTask" />
-						<CoinSvg :count="taskStore.exerciseScore.earned" class="coin" />
-						<TaskBoardOptions />
+						<div class="row">
+							<q-btn
+								class="q-mt-sm"
+								icon="close"
+								round
+								color="negative"
+								size="md"
+								@click="handleCloseTask" />
+							<TaskBoardResult />
+							<TaskBoardOptions />
+						</div>
+						<TaskBoardProgress />
 					</div>
-					<TaskBoardProgress />
 					<TaskBoardContent />
 					<TaskBoardActions />
 				</LayoutMain>
@@ -47,17 +49,11 @@ function handleCloseTask() {
 	right: 0;
 	bottom: 0;
 	box-sizing: border-box;
-	.task-board-wrapper {
-		display: flex;
-		flex-direction: column;
-		max-height: 100%;
-		.header {
+	.header {
+		.row {
 			display: flex;
 			justify-content: space-between;
 			align-items: flex-start;
-			.coin {
-				width: 100px;
-			}
 		}
 	}
 }
