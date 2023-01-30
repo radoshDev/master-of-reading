@@ -15,7 +15,8 @@ export type Task = {
 export type MainTask = Task & { subtasks: Record<string, Task> }
 
 export type ExerciseScore = {
-	earned: number
+	result: number
+	action: 'add' | 'subtract'
 	exercises: string[]
 	index: number
 }

@@ -125,20 +125,20 @@ export const useTaskStore = defineStore('task', () => {
 	const showTask = ref(false)
 	const tasksScore = ref<TasksScore>({
 		letters: {
-			vowels: { index: 0, earned: 0, exercises: ['A', 'B'] },
-			consonants: { index: 0, earned: 0, exercises: [] },
-			mix: { index: 0, earned: 0, exercises: [] },
+			vowels: { index: 0, result: 0, action: 'add', exercises: [] },
+			consonants: { index: 0, result: 0, action: 'add', exercises: [] },
+			mix: { index: 0, result: 0, action: 'add', exercises: [] },
 		},
 		syllables: {
-			vowelFirst: { index: 0, earned: 0, exercises: [] },
-			consonantFirst: { index: 0, earned: 0, exercises: [] },
-			mix: { index: 0, earned: 0, exercises: [] },
+			vowelFirst: { index: 0, result: 0, action: 'add', exercises: [] },
+			consonantFirst: { index: 0, action: 'add', result: 0, exercises: [] },
+			mix: { index: 0, result: 0, action: 'add', exercises: [] },
 		},
 		words: {
-			three: { index: 0, earned: 0, exercises: [] },
-			four: { index: 0, earned: 0, exercises: [] },
-			five: { index: 0, earned: 0, exercises: [] },
-			mix: { index: 0, earned: 0, exercises: [] },
+			three: { index: 0, result: 0, action: 'add', exercises: [] },
+			four: { index: 0, result: 0, action: 'add', exercises: [] },
+			five: { index: 0, result: 0, action: 'add', exercises: [] },
+			mix: { index: 0, result: 0, action: 'add', exercises: [] },
 		},
 	})
 
@@ -182,8 +182,9 @@ export const useTaskStore = defineStore('task', () => {
 	}
 
 	function startTask() {
-		exerciseScore.value.earned = 0
+		exerciseScore.value.result = 0
 		exerciseScore.value.index = 0
+		exerciseScore.value.action = 'add'
 		generateTask()
 		showTask.value = true
 	}

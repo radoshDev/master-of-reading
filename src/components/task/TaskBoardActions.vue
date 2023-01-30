@@ -14,12 +14,23 @@ const isRoundEnd = computed(
 		taskStore.exerciseScore.index === taskStore.exerciseScore.exercises.length
 )
 
+const isExerciseEnd = computed(() => {
+	return (
+		taskStore.exerciseScore.action === 'subtract' &&
+		taskStore.exerciseScore.result <= 0
+	)
+})
+
 function handlePrev() {
 	taskStore.options.slideBack = true
 	const currentIndex = taskStore.exerciseScore.index
 	const taskLength = taskStore.exerciseScore.exercises.length
 	if (currentIndex === taskLength) {
-		taskStore.exerciseScore.earned -= 1
+		if (taskStore.exerciseScore.action === 'add') {
+			taskStore.exerciseScore.result -= 1
+		} else {
+			taskStore.exerciseScore.result += 1
+		}
 	}
 	taskStore.exerciseScore.index -= 1
 }
@@ -36,7 +47,11 @@ function handleNext() {
 			taskStore.exerciseScore.index = currentIndex + 1
 
 			if (currentIndex + 1 === taskLength) {
-				taskStore.exerciseScore.earned += 1
+				if (taskStore.exerciseScore.action === 'add') {
+					taskStore.exerciseScore.result += 1
+				} else {
+					taskStore.exerciseScore.result -= 1
+				}
 			}
 		},
 	})
@@ -59,6 +74,7 @@ function handleMore() {
 		<q-btn
 			@click="handleMore"
 			v-if="isRoundEnd"
+			:disable="isExerciseEnd"
 			label="Ще"
 			icon-right="add"
 			size="1rem"
