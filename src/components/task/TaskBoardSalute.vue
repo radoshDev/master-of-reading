@@ -30,14 +30,17 @@ function handleSpeak() {
 
 <style scoped lang="scss">
 .salute {
+	padding-top: 0.5rem;
 	width: 100%;
 	text-align: center;
 	.salute-img {
 		max-width: 100%;
-		max-height: 40vh;
+		max-height: 38vh;
 	}
 	.title {
 		font-size: 3rem;
+		line-height: 1;
+		margin-bottom: 0.7rem;
 		text-transform: capitalize;
 	}
 }
