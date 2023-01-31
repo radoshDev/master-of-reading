@@ -4,17 +4,17 @@ export type Pokemon = {
 	id: number
 }
 
-export interface EvolutionChainResponse {
-	data: {
-		evolutionChain: EvolutionChain
+export type Species = {
+	evolution_chain: {
+		url: string
+	}
+	evolves_from_species: {
+		name: string
+		url: string
 	}
 }
 
-interface EvolutionChain {
-	response: Response
-}
-
-interface Response {
+export interface EvolutionChainResponse {
 	baby_trigger_item?: any
 	chain: Chain
 	id: number

@@ -36,11 +36,13 @@ defineProps<{ task: Task }>()
 	}
 	.img-wrapper {
 		width: 100px;
+		height: 100%;
 		@media (min-width: 500px) {
 			flex: 1;
 		}
 	}
 	.title {
+		text-transform: capitalize;
 		font-size: inherit;
 		font-weight: bold;
 	}

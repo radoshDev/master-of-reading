@@ -2,11 +2,12 @@
 import { computed } from 'vue'
 import { usePokemonStore } from '@/stores/pokemonStore'
 import useSpeechSynthesis from '@/hooks/useSpeechSynthesis'
+import { ROUTE_NAMES } from '@/constants'
 
 const pokemonStore = usePokemonStore()
 const { speak, speaking } = useSpeechSynthesis()
 
-const pokemon = computed(() => pokemonStore.pokemons[pokemonStore.index])
+const pokemon = computed(() => pokemonStore.pokemons.data[pokemonStore.index])
 function handleSpeak() {
 	if (speaking.value) return
 	speak({ text: pokemon.value.name, rate: 0.7 })
@@ -23,7 +24,12 @@ function handleSpeak() {
 				class="salute-img"
 				fit="contain" />
 		</div>
-		<q-btn flat round icon="help" color="orange-13" />
+		<q-btn
+			flat
+			round
+			icon="help"
+			color="orange-13"
+			:to="{ name: ROUTE_NAMES.pokemon, params: { id: pokemon.id } }" />
 		<div class="title">{{ pokemon.name }}</div>
 	</div>
 </template>

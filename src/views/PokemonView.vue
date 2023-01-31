@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PokemonDetails from '@/components/pokemon/PokemonDetails.vue'
+</script>
 
 <template>
-	<div>Single pokemon</div>
+	<PokemonDetails />
 </template>
