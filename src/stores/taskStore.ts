@@ -87,7 +87,7 @@ export const tasks: Record<TaskType, MainTask> = {
 			four: {
 				title: '4 букви',
 				img: {
-					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg',
+					src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/44.svg',
 					name: 'ivysaur',
 				},
 			},
@@ -173,9 +173,9 @@ export const useTaskStore = defineStore('task', () => {
 				exerciseType.value as SyllableType
 			).generateSyllables(10)
 		}
-		if (taskType.value === 'words' && wordStore.words.data) {
+		if (taskType.value === 'words' && wordStore.words) {
 			exerciseScore.value.exercises = generateWords(
-				wordStore.words.data,
+				wordStore.words,
 				exerciseType.value as WordType
 			)
 		}

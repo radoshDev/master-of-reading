@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import ExercisesList from '@/components/task/ExercisesList.vue'
 import TaskBoard from '@/components/task/TaskBoard.vue'
 import { ROUTE_NAMES } from '@/constants'
 import { useTaskStore } from '@/stores/taskStore'
 import { tasks } from '@/stores/taskStore'
 import { usePokemonStore } from '@/stores/pokemonStore'
+import { useWordStore } from '@/stores/wordStore'
+import { useQuasar } from 'quasar'
 
 const taskStore = useTaskStore()
 const pokemonStore = usePokemonStore()
+const wordStore = useWordStore()
+const $q = useQuasar()
 
 const exercise = computed(() => tasks[taskStore.taskType])
 
@@ -24,6 +28,21 @@ function handleStartTask() {
 function handleContinueTask() {
 	taskStore.showTask = true
 }
+onMounted(async () => {
+	if (taskStore.taskType !== 'words') return
+	try {
+		$q.loading.show()
+		await wordStore.fetchWords()
+	} catch (error) {
+		$q.notify({
+			message: 'Не можу завантажити слова. Щось пішло не так...',
+			position: 'top',
+			color: 'negative',
+		})
+	} finally {
+		$q.loading.hide()
+	}
+})
 </script>
 
 <template>
