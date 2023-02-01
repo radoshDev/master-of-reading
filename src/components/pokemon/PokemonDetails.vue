@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { usePokemonStore } from '@/stores/pokemonStore'
+import { useQuasar } from 'quasar'
 import { onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+
+const $q = useQuasar()
 const pokemonStore = usePokemonStore()
 const route = useRoute()
 const router = useRouter()
@@ -11,7 +14,7 @@ const currentPokemon = computed(() =>
 	pokemonStore.pokemons.data.find(pok => pok.id === pokemonId)
 )
 const evolutions = computed(() => {
-	return pokemonStore.pokemonEvolution.data.map(pokemonName =>
+	return pokemonStore.pokemonEvolution.map(pokemonName =>
 		pokemonStore.pokemons.data.find(pok => pok.name === pokemonName)
 	)
 })
@@ -20,14 +23,24 @@ function closePage() {
 	router.back()
 }
 
-onMounted(() => {
-	pokemonStore.fetchEvolution(pokemonId)
+onMounted(async () => {
+	try {
+		$q.loading.show()
+		await pokemonStore.fetchEvolution(pokemonId)
+	} catch (error) {
+		$q.notify({
+			message: 'Problem to load evolution chain',
+			position: 'top',
+			color: 'negative',
+		})
+	} finally {
+		$q.loading.hide()
+	}
 })
 </script>
 
 <template>
-	<div v-if="pokemonStore.pokemonEvolution.isLoading">Loading...</div>
-	<div v-else class="pokemon-details">
+	<div class="pokemon-details">
 		<q-btn
 			@click="closePage"
 			round

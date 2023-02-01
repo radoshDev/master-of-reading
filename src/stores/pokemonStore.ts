@@ -17,11 +17,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
 		isLoading: false,
 		error: '',
 	})
-	const pokemonEvolution = ref<FetchData<string[]>>({
-		data: [],
-		error: '',
-		isLoading: false,
-	})
+	const pokemonEvolution = ref<string[]>([])
 	const index = ref(0)
 
 	async function fetchPokemons() {
@@ -44,18 +40,10 @@ export const usePokemonStore = defineStore('pokemon', () => {
 	}
 
 	async function fetchEvolution(id: Pokemon['id']) {
-		try {
-			pokemonEvolution.value.isLoading = true
-			pokemonEvolution.value.error = ''
-			const species = await getPokemonSpecies(id)
-			const result = await getEvolutionChain(species.evolution_chain.url)
+		const species = await getPokemonSpecies(id)
+		const result = await getEvolutionChain(species.evolution_chain.url)
 
-			pokemonEvolution.value.data = getPokemonEvolves(result)
-		} catch (error) {
-			pokemonEvolution.value.error = 'Problem to load evolution chain'
-		} finally {
-			pokemonEvolution.value.isLoading = false
-		}
+		pokemonEvolution.value = getPokemonEvolves(result)
 	}
 
 	function setIndex() {
