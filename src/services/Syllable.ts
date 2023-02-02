@@ -1,6 +1,6 @@
 import { consonants, vowels } from '@/constants'
 import type { SyllableType } from '@/types/Task'
-import { getRandomIndex } from '@/utils/getRandomIndex'
+import { getRandomIndex } from '@/helpers/getRandomIndex'
 
 export class Syllable {
 	syllablesList: string[] = []

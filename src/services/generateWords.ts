@@ -1,5 +1,5 @@
 import type { WordsList, WordType, WordHeader } from '@/types/Task'
-import { getRandomIndex } from '@/utils/getRandomIndex'
+import { getRandomIndex } from '@/helpers/getRandomIndex'
 
 export const generateWords = (list: WordsList, type: WordType): string[] => {
 	const wordsList = { ...list } as Record<WordType, string[]>

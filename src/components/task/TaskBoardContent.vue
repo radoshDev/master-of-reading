@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import TaskBoardSalute from './TaskBoardSalute.vue'
 import { useTaskStore } from '@/stores/taskStore'
-import { calculateFontSize } from '@/utils/calculateFontSize'
+import { calculateFontSize } from '@/helpers/calculateFontSize'
 
 const taskStore = useTaskStore()
 

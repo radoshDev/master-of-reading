@@ -1,6 +1,6 @@
 import type { LetterType } from '@/types/Task'
 import { consonants, vowels } from '@/constants'
-import { getRandomIndex } from '@/utils/getRandomIndex'
+import { getRandomIndex } from '@/helpers/getRandomIndex'
 
 export const generateLetters = (type: LetterType): string[] => {
 	const lettersList: Record<LetterType, string[]> = {

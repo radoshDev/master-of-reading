@@ -7,9 +7,9 @@ import {
 	getEvolutionChain,
 	getPokemonSpecies,
 } from '@/api/pokemonApi'
-import { getRandomIndex } from '@/utils/getRandomIndex'
+import { getRandomIndex } from '@/helpers/getRandomIndex'
 import type { FetchData } from '@/types'
-import { getPokemonEvolves } from '@/utils/getPokemonEvolves'
+import { getPokemonEvolves } from '@/helpers/getPokemonEvolves'
 
 export const usePokemonStore = defineStore('pokemon', () => {
 	const pokemons = ref<FetchData<Pokemon[]>>({

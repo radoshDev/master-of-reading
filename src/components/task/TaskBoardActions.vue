@@ -2,7 +2,7 @@
 import useSpeechSynthesis from '@/hooks/useSpeechSynthesis'
 import { usePokemonStore } from '@/stores/pokemonStore'
 import { useTaskStore } from '@/stores/taskStore'
-import { convertToRussish } from '@/utils/convertToRussish'
+import { convertToRussish } from '@/helpers/convertToRussish'
 import { computed } from 'vue'
 
 const taskStore = useTaskStore()
