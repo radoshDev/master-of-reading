@@ -12,6 +12,7 @@ import { Syllable } from '@/services/Syllable'
 import { generateWords } from '@/services/generateWords'
 import { generateLetters } from '@/services/generateLetters'
 import { useWordStore } from './wordStore'
+import { TASKS_SCORE_STORAGE_KEY } from '@/constants'
 
 export const tasks: Record<TaskType, MainTask> = {
 	letters: {
@@ -113,6 +114,25 @@ export const tasks: Record<TaskType, MainTask> = {
 	},
 }
 
+const initialTasksScore: TasksScore = {
+	letters: {
+		vowels: { index: 0, result: 0, action: 'add', exercises: [] },
+		consonants: { index: 0, result: 0, action: 'add', exercises: [] },
+		mix: { index: 0, result: 0, action: 'add', exercises: [] },
+	},
+	syllables: {
+		vowelFirst: { index: 0, result: 0, action: 'add', exercises: [] },
+		consonantFirst: { index: 0, action: 'add', result: 0, exercises: [] },
+		mix: { index: 0, result: 0, action: 'add', exercises: [] },
+	},
+	words: {
+		three: { index: 0, result: 0, action: 'add', exercises: [] },
+		four: { index: 0, result: 0, action: 'add', exercises: [] },
+		five: { index: 0, result: 0, action: 'add', exercises: [] },
+		mix: { index: 0, result: 0, action: 'add', exercises: [] },
+	},
+}
+
 export const useTaskStore = defineStore('task', () => {
 	const wordStore = useWordStore()
 	const options = ref({ mute: false, upper: true, slideBack: false })
@@ -123,24 +143,10 @@ export const useTaskStore = defineStore('task', () => {
 		words: 'mix',
 	})
 	const showTask = ref(false)
-	const tasksScore = ref<TasksScore>({
-		letters: {
-			vowels: { index: 0, result: 0, action: 'add', exercises: [] },
-			consonants: { index: 0, result: 0, action: 'add', exercises: [] },
-			mix: { index: 0, result: 0, action: 'add', exercises: [] },
-		},
-		syllables: {
-			vowelFirst: { index: 0, result: 0, action: 'add', exercises: [] },
-			consonantFirst: { index: 0, action: 'add', result: 0, exercises: [] },
-			mix: { index: 0, result: 0, action: 'add', exercises: [] },
-		},
-		words: {
-			three: { index: 0, result: 0, action: 'add', exercises: [] },
-			four: { index: 0, result: 0, action: 'add', exercises: [] },
-			five: { index: 0, result: 0, action: 'add', exercises: [] },
-			mix: { index: 0, result: 0, action: 'add', exercises: [] },
-		},
-	})
+	const storageTasksScore = JSON.parse(
+		localStorage.getItem(TASKS_SCORE_STORAGE_KEY) || '0'
+	)
+	const tasksScore = ref<TasksScore>(storageTasksScore || initialTasksScore)
 
 	const exerciseType = computed(() => selectedExercise.value[taskType.value])
 
@@ -192,6 +198,10 @@ export const useTaskStore = defineStore('task', () => {
 	function nextRound() {
 		exerciseScore.value.index = 0
 		generateTask()
+		localStorage.setItem(
+			TASKS_SCORE_STORAGE_KEY,
+			JSON.stringify(tasksScore.value)
+		)
 	}
 
 	return {

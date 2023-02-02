@@ -1,4 +1,6 @@
 export const POKEMONS_STORAGE_KEY = 'pokemons'
+export const TASKS_SCORE_STORAGE_KEY = 'tasksScore'
+
 export const POKEMONS_AMOUNT = 630
 
 export const ROUTE_NAMES = {
