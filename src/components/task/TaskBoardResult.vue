@@ -17,7 +17,8 @@ function changeAction(type: ExerciseScore['action']) {
 				<div class="flex">
 					<div>Монет:</div>
 					<q-input
-						type="tel"
+						type="number"
+						inputmode="numeric"
 						v-model.number="taskStore.exerciseScore.result"
 						@update:model-value="
 							val => (taskStore.exerciseScore.result = Number(val) || 0)

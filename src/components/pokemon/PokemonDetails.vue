@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePokemonStore } from '@/stores/pokemonStore'
 import { useQuasar } from 'quasar'
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const $q = useQuasar()
@@ -9,6 +9,7 @@ const pokemonStore = usePokemonStore()
 const route = useRoute()
 const router = useRouter()
 const pokemonId = Number(route.params['id'])
+const isLoadingEvolution = ref(false)
 
 const currentPokemon = computed(() =>
 	pokemonStore.pokemons.data.find(pok => pok.id === pokemonId)
@@ -25,6 +26,7 @@ function closePage() {
 
 onMounted(async () => {
 	try {
+		isLoadingEvolution.value = true
 		$q.loading.show()
 		await pokemonStore.fetchEvolution(pokemonId)
 	} catch (error) {
@@ -34,6 +36,7 @@ onMounted(async () => {
 			color: 'negative',
 		})
 	} finally {
+		isLoadingEvolution.value = false
 		$q.loading.hide()
 	}
 })
@@ -57,11 +60,15 @@ onMounted(async () => {
 				<div class="title">{{ currentPokemon?.name }}</div>
 			</div>
 		</div>
-		<template v-if="evolutions.length > 0">
+		<template v-if="evolutions.length > 1 && !isLoadingEvolution">
 			<div class="text-bold text-h5 q-my-md text-center">Evolution chart</div>
 			<div class="chart">
 				<div v-for="pokemon in evolutions" :key="pokemon?.name">
-					<q-img :src="pokemon?.dreamworld" :alt="pokemon?.name" width="90px" />
+					<q-img
+						:src="pokemon?.dreamworld"
+						:alt="pokemon?.name"
+						height="300px"
+						fit="contain" />
 					<div>
 						{{ pokemon?.name }}
 					</div>
@@ -75,9 +82,9 @@ onMounted(async () => {
 .pokemon-details {
 	position: relative;
 	.close-btn {
-		position: absolute;
-		top: 0;
-		right: 0;
+		position: fixed;
+		top: 12px;
+		right: 12px;
 	}
 	.header {
 		display: flex;
@@ -98,7 +105,6 @@ onMounted(async () => {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		align-items: center;
 		text-align: center;
 		text-transform: capitalize;
 	}

@@ -50,7 +50,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
 		const daysInWeek = 7
 		const maxLength = POKEMONS_AMOUNT / daysInWeek
 		const startIndex = new Date().getDay() * maxLength
-		index.value = getRandomIndex(startIndex, maxLength)
+		index.value = getRandomIndex(maxLength, startIndex)
 	}
 
 	return {

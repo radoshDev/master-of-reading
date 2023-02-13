@@ -46,53 +46,60 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div class="task-item_header">
-		<q-btn
-			icon="arrow_back_ios_new"
-			flat
-			size="1.05rem"
-			:to="{ name: ROUTE_NAMES.home }" />
-		<h2 class="title">{{ exercise.title }}</h2>
-	</div>
-	<ExercisesList :sub-tasks="exercise.subtasks" />
-	<div class="task-item_actions">
-		<q-btn
-			v-if="taskStore.exerciseScore"
-			@click="handleStartTask"
-			label="Початок"
-			color="blue-8"
-			class="btn"
-			size="1.05rem" />
-		<q-btn
-			@click="handleContinueTask"
-			label="Продовжити"
-			color="yellow-9"
-			class="btn"
-			size="1.05rem"
-			v-if="showContinueBtn" />
+	<div class="task-item">
+		<div class="task-item_header">
+			<q-btn
+				icon="arrow_back_ios_new"
+				flat
+				size="1.05rem"
+				:to="{ name: ROUTE_NAMES.home }" />
+			<h2 class="title">{{ exercise.title }}</h2>
+		</div>
+		<ExercisesList :sub-tasks="exercise.subtasks" />
+		<div class="task-item_actions">
+			<q-btn
+				v-if="taskStore.exerciseScore"
+				@click="handleStartTask"
+				label="Початок"
+				color="blue-8"
+				class="btn"
+				size="1.05rem" />
+			<q-btn
+				@click="handleContinueTask"
+				label="Продовжити"
+				color="yellow-9"
+				class="btn"
+				size="1.05rem"
+				v-if="showContinueBtn" />
+		</div>
 	</div>
 	<TaskBoard />
 </template>
 
 <style scoped lang="scss">
-.task-item_header {
+.task-item {
+	height: calc(100vh - 95px);
 	display: flex;
-	gap: 1rem;
-	align-items: center;
-	margin: 0 0 1rem;
-	.title {
-		font-size: 2.5rem;
-		font-weight: bold;
-		margin: 0;
+	flex-direction: column;
+	.task-item_header {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		margin: 0 0 1rem;
+		.title {
+			font-size: 2.5rem;
+			font-weight: bold;
+			margin: 0;
+		}
 	}
-}
-.task-item_actions {
-	display: flex;
-	justify-content: center;
-	gap: 25px;
-	flex-wrap: wrap;
-	.btn {
-		min-width: 150px;
+	.task-item_actions {
+		display: flex;
+		justify-content: center;
+		gap: 25px;
+		flex-wrap: wrap;
+		.btn {
+			min-width: 150px;
+		}
 	}
 }
 </style>

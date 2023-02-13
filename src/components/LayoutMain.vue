@@ -12,8 +12,9 @@
 	max-width: 1024px;
 	padding: 10px 15px 90px;
 	margin-inline: auto;
-	height: 100vh;
-	max-height: 100vh;
+	/* height: 100vh;
+	max-height: 100vh; */
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
