@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import TaskBoardSalute from './TaskBoardSalute.vue'
+import TaskBoardHints from './TaskBoardHints.vue'
 import { useTaskStore } from '@/stores/taskStore'
 import { calculateFontSize } from '@/helpers/calculateFontSize'
 
@@ -12,21 +13,23 @@ const isRoundEnd = computed(
 )
 
 const fontSize = computed(
-	() =>
-		`min(min(50vw, ${calculateFontSize(taskStore.exerciseText.length)}), 48vh)`
+	() => `min(${calculateFontSize(taskStore.exerciseText.length)}, 48vh)`
 )
 </script>
 
 <template>
 	<div class="task-board-content wrapper-center">
 		<Transition :name="taskStore.options.slideBack ? 'slideback' : 'slide'">
-			<div
-				:class="{ 'text-uppercase': taskStore.options.upper }"
-				class="sample"
-				:style="{ fontSize }"
-				v-if="taskStore.exerciseText"
-				:key="taskStore.exerciseText">
-				{{ taskStore.exerciseText }}
+			<div class="sample" :key="taskStore.exerciseText">
+				<div
+					:class="{ 'text-uppercase': taskStore.options.upper }"
+					:style="{ fontSize }"
+					v-if="taskStore.exerciseText">
+					{{ taskStore.exerciseText }}
+				</div>
+				<TaskBoardHints
+					:word="taskStore.exerciseText"
+					v-if="taskStore.taskType === 'words'" />
 			</div>
 		</Transition>
 		<Transition :name="taskStore.options.slideBack ? 'slideback' : 'slide'">
