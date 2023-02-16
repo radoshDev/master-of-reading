@@ -45,7 +45,7 @@ const isImage = ref(false)
 			<q-separator />
 			<q-card-section class="q-pa-none">
 				<iframe
-					:src="`https://uk.wikipedia.org/wiki/${word}`"
+					:src="`https://uk.wiktionary.org/wiki/${word}`"
 					style="height: 70vh; width: 100%" />
 			</q-card-section>
 		</q-card>
