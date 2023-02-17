@@ -20,11 +20,13 @@ const fontSize = computed(
 <template>
 	<div class="task-board-content wrapper-center">
 		<Transition :name="taskStore.options.slideBack ? 'slideback' : 'slide'">
-			<div class="sample" :key="taskStore.exerciseText">
+			<div
+				class="sample"
+				:key="taskStore.exerciseText"
+				v-if="taskStore.exerciseText">
 				<div
 					:class="{ 'text-uppercase': taskStore.options.upper }"
-					:style="{ fontSize }"
-					v-if="taskStore.exerciseText">
+					:style="{ fontSize }">
 					{{ taskStore.exerciseText }}
 				</div>
 				<TaskBoardHints

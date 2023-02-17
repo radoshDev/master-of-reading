@@ -51,11 +51,11 @@ onMounted(async () => {
 			color="negative"
 			class="close-btn"
 			size="sm" />
-		<div class="header" :class="{ single: evolutions.length === 0 }">
+		<div class="header" :class="{ single: evolutions.length === 1 }">
 			<q-img
 				:src="currentPokemon?.dreamworld"
 				:alt="currentPokemon?.name"
-				:width="evolutions.length === 0 ? '100%' : '100px'" />
+				class="main-img" />
 			<div class="info">
 				<div class="title">{{ currentPokemon?.name }}</div>
 			</div>
@@ -82,17 +82,28 @@ onMounted(async () => {
 .pokemon-details {
 	position: relative;
 	.close-btn {
-		position: fixed;
+		position: sticky;
 		top: 12px;
 		right: 12px;
+		z-index: 99;
+		margin-left: auto;
+		display: flex;
 	}
 	.header {
 		display: flex;
 		flex-direction: row;
+		align-items: flex-start;
 		gap: 1.5rem;
 		&.single {
 			flex-direction: column;
 			align-items: center;
+			.main-img {
+				width: 100%;
+				max-width: 450px;
+			}
+		}
+		.main-img {
+			width: 100px;
 		}
 		.info {
 			.title {
