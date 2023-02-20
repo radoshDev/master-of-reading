@@ -1,7 +1,8 @@
 export const csvParser = <T extends string = string>(
 	strData: string
 ): Record<T, string[]> => {
-	const list = strData.split('\n')
+	const list = strData.split('\r\n')
+
 	const headerList = list[0].split(',')
 
 	const result = list.slice(1).reduce((acc, curr) => {

@@ -4,7 +4,7 @@ export const calculateFontSize = (wordLength: number): string => {
 		2: `min(${desktopSize}px, 45vw)`,
 		3: `min(${desktopSize}px, 39vw)`,
 		4: `min(${desktopSize}px, 30vw)`,
-		5: `min(${desktopSize}px, 22vw)`,
+		5: `min(${desktopSize}px, 23vw)`,
 		6: `min(${desktopSize}px, 19vw)`,
 		7: `min(${desktopSize}px, 16vw)`,
 		8: `min(${desktopSize}px, 14vw)`,
