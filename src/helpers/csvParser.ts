@@ -16,5 +16,5 @@ export const csvParser = <T extends string = string>(
 		return acc
 	}, {} as Record<string, string[]>)
 
-	return result as Record<T, string[]>
+	return result
 }

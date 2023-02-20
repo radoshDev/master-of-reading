@@ -1,25 +1,13 @@
 export const calculateFontSize = (wordLength: number): string => {
 	const desktopSize = 1200 / wordLength
-	if (wordLength < 3) {
-		return '50vw'
+	const sizeLookup: Record<number, string> = {
+		2: `min(${desktopSize}px, 45vw)`,
+		3: `min(${desktopSize}px, 39vw)`,
+		4: `min(${desktopSize}px, 30vw)`,
+		5: `min(${desktopSize}px, 22vw)`,
+		6: `min(${desktopSize}px, 19vw)`,
+		7: `min(${desktopSize}px, 16vw)`,
+		8: `min(${desktopSize}px, 14vw)`,
 	}
-	if (wordLength === 3) {
-		return `min(${desktopSize}px, 39vw)`
-	}
-	if (wordLength === 4) {
-		return `min(${desktopSize}px, 30vw)`
-	}
-	if (wordLength === 5) {
-		return `min(${desktopSize}px, 22vw)`
-	}
-	if (wordLength === 6) {
-		return `min(${desktopSize}px, 19vw)`
-	}
-	if (wordLength === 7) {
-		return `min(${desktopSize}px, 16vw)`
-	}
-	if (wordLength === 8) {
-		return `min(${desktopSize}px, 14vw)`
-	}
-	return '1rem'
+	return sizeLookup[wordLength] || '1rem'
 }
