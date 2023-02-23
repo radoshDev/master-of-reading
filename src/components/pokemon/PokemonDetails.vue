@@ -15,9 +15,11 @@ const currentPokemon = computed(() =>
 	pokemonStore.pokemons.data.find(pok => pok.id === pokemonId)
 )
 const evolutions = computed(() => {
-	return pokemonStore.pokemonEvolution.map(pokemonName =>
-		pokemonStore.pokemons.data.find(pok => pok.name === pokemonName)
-	)
+	return pokemonStore.pokemonEvolution
+		.map(pokemonName =>
+			pokemonStore.pokemons.data.find(pok => pok.name === pokemonName)
+		)
+		.filter(Boolean)
 })
 
 function closePage() {
