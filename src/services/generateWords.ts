@@ -3,10 +3,10 @@ import { getRandomIndex } from '@/helpers/getRandomIndex'
 
 export const generateWords = (list: WordsList, type: WordType): string[] => {
 	const wordsList = { ...list } as Record<WordType, string[]>
-	let exerciseLength = 5
+	let exerciseLength = 6
 
-	if (type === 'three') exerciseLength = 8
-	if (type === 'four') exerciseLength = 6
+	if (type === 'three') exerciseLength = 10
+	if (type === 'four') exerciseLength = 7
 
 	if (type === 'mix') {
 		const mixArray: string[] = []
