@@ -8,8 +8,8 @@ export const csvParser = <T extends string = string>(
 	const result = list.slice(1).reduce((acc, curr) => {
 		const valueList = curr.split(',')
 		for (let i = 0; i < headerList.length; i++) {
-			const header = headerList[i]
-			const value = valueList[i]
+			const header = headerList[i]?.trim()
+			const value = valueList[i]?.trim()
 			if (value) {
 				acc[header] = [...(acc[header] || []), value]
 			}
