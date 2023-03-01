@@ -1,29 +1,33 @@
-import type { WordsList, WordType, WordHeader } from '@/types/Task'
+import type { WordsList, WordType } from '@/types/Task'
 import { getRandomIndex } from '@/helpers/getRandomIndex'
+import { getMixedWords } from '@/helpers/getMixedWords'
 
 export const generateWords = (list: WordsList, type: WordType): string[] => {
-	const wordsList = { ...list } as Record<WordType, string[]>
+	const wordsList: Record<WordType, string[]> = { ...list, mix: [] }
 	let exerciseLength = 6
 
 	if (type === 'three') exerciseLength = 10
 	if (type === 'four') exerciseLength = 7
 
 	if (type === 'mix') {
-		const mixArray: string[] = []
-		for (const key in list) {
-			mixArray.push(...list[key as WordHeader])
-		}
-		wordsList.mix = mixArray
+		wordsList[type] = getMixedWords(list)
 	}
 
-	const array: string[] = []
-	let i = 0
-	while (i < exerciseLength) {
-		const word = wordsList[type][getRandomIndex(wordsList[type].length)]
-		if (!array.includes(word)) {
-			array.push(word)
-			i++
-		}
+	const selectedWords: Set<string> = new Set()
+	const words = wordsList[type]
+
+	if (!words) return []
+
+	if (words.length <= exerciseLength) return words
+
+	while (selectedWords.size !== exerciseLength) {
+		const randomIndex = getRandomIndex(words.length)
+		const word = words[randomIndex]
+
+		if (selectedWords.has(word)) continue
+
+		selectedWords.add(word)
 	}
-	return array
+
+	return Array.from(selectedWords)
 }
