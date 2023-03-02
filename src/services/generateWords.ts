@@ -13,12 +13,13 @@ export const generateWords = (list: WordsList, type: WordType): string[] => {
 		wordsList[type] = getMixedWords(list)
 	}
 
-	const selectedWords: Set<string> = new Set()
 	const words = wordsList[type]
 
 	if (!words) return []
 
 	if (words.length <= exerciseLength) return words
+
+	const selectedWords: Set<string> = new Set()
 
 	while (selectedWords.size !== exerciseLength) {
 		const randomIndex = getRandomIndex(words.length)

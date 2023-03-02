@@ -3,6 +3,14 @@ import { it, describe, expect, vi } from 'vitest'
 import { generateWords } from '@/services/generateWords'
 import { getMixedWords } from '@/helpers/getMixedWords'
 
+const mixedMock = ['cat', 'dog', 'rat', 'frog', 'duck', 'seal']
+
+vi.mock('@/helpers/getMixedWords', async () => {
+	return {
+		getMixedWords: vi.fn(() => mixedMock),
+	}
+})
+
 describe('generateWords', () => {
 	const wordsList: WordsList = {
 		three: [
@@ -112,11 +120,6 @@ describe('generateWords', () => {
 		difficult: ['xylophone', 'quicksand'],
 	}
 
-	it('returns an array of length 6 for type "mix"', () => {
-		const result = generateWords(wordsList, 'mix')
-		expect(result.length).toEqual(6)
-	})
-
 	it('returns an array of length 10 for type "three"', () => {
 		const result = generateWords(wordsList, 'three')
 		expect(result.length).toEqual(10)
@@ -128,7 +131,7 @@ describe('generateWords', () => {
 	})
 
 	it('returns an array of unique words', () => {
-		const result = generateWords(wordsList, 'mix')
+		const result = generateWords(wordsList, 'five')
 		const uniqueWords = new Set(result)
 		expect(uniqueWords.size).toEqual(result.length)
 	})
@@ -143,23 +146,11 @@ describe('generateWords', () => {
 		expect(result.length).toEqual(wordListSmall['four'].length)
 	})
 	it('returns mixed words when type is mix', () => {
-		vi.mock('@/helpers/getMixedWords', async () => {
-			return {
-				getMixedWords: vi.fn(() => [
-					'cat',
-					'dog',
-					'rat',
-					'frog',
-					'duck',
-					'seal',
-				]),
-			}
-		})
 		const wordsList = { ...wordListSmall, mix: [] }
 
 		const words = generateWords(wordsList, 'mix')
 
 		expect(getMixedWords).toHaveBeenCalledWith(wordsList)
-		expect(words).toEqual(['cat', 'dog', 'rat', 'frog', 'duck', 'seal'])
+		expect(words).toEqual(mixedMock)
 	})
 })
