@@ -1,156 +1,55 @@
-import type { WordsList } from '@/types/Task'
-import { it, describe, expect, vi } from 'vitest'
+import type { WordHeader, WordsList } from '@/types/Task'
+import { it, describe, expect, vi, afterEach } from 'vitest'
 import { generateWords } from '@/services/generateWords'
 import { getMixedWords } from '@/helpers/getMixedWords'
+import { generateUniqueList } from '@/helpers/generateUniqueList'
 
-const mixedMock = ['cat', 'dog', 'rat', 'frog', 'duck', 'seal']
-
-vi.mock('@/helpers/getMixedWords', async () => {
+vi.mock('@/helpers/getMixedWords', () => {
 	return {
-		getMixedWords: vi.fn(() => mixedMock),
+		getMixedWords: vi.fn().mockImplementation(() => []),
 	}
 })
 
-describe('generateWords', () => {
-	const wordsList: WordsList = {
-		three: [
-			'bag',
-			'dad',
-			'gas',
-			'jam',
-			'lap',
-			'map',
-			'net',
-			'pan',
-			'ram',
-			'sad',
-			'tap',
-			'van',
-			'wet',
-			'yak',
-			'zap',
-		],
-		four: [
-			'cake',
-			'desk',
-			'exit',
-			'farm',
-			'goal',
-			'huge',
-			'item',
-			'jury',
-			'king',
-			'land',
-			'menu',
-			'next',
-			'open',
-			'park',
-			'quiz',
-			'rock',
-			'star',
-			'tube',
-			'unit',
-			'vast',
-			'wild',
-			'xray',
-			'yawn',
-			'zone',
-		],
-		five: [
-			'apple',
-			'beach',
-			'cheek',
-			'dance',
-			'earth',
-			'flame',
-			'glide',
-			'horse',
-			'image',
-			'jolly',
-			'kiosk',
-			'lemon',
-			'mouse',
-			'night',
-			'olive',
-			'plant',
-			'quart',
-			'river',
-			'salty',
-			'tulip',
-			'uncle',
-			'viola',
-			'wagon',
-			'young',
-			'zebra',
-		],
-		difficult: [
-			'awkward',
-			'bagpipes',
-			'crypt',
-			'dwarves',
-			'embezzle',
-			'fishhook',
-			'galaxy',
-			'hyphen',
-			'ivory',
-			'jigsaw',
-			'kazoo',
-			'luxury',
-			'memento',
-			'nightclub',
-			'onyx',
-			'pajama',
-			'quartz',
-			'rhythm',
-			'scratch',
-			'twelfth',
-			'unzip',
-			'vortex',
-			'wave',
-			'xylophone',
-			'yacht',
-			'zigzag',
-		],
+vi.mock('@/helpers/generateUniqueList', () => {
+	return {
+		generateUniqueList: vi.fn(),
+	}
+})
+
+describe('#generateWords', () => {
+	const mockList: WordsList = {
+		three: ['cat', 'dog', 'fly'],
+		four: ['bird', 'frog', 'lion'],
+		five: ['apple', 'banana', 'cherry'],
+		difficult: ['encyclopedia', 'rhythm', 'mnemonic'],
 	}
 
-	const wordListSmall: WordsList = {
-		three: ['cat', 'dog', 'pot', 'top'],
-		four: ['bird', 'lion', 'fish'],
-		five: ['apple', 'pear', 'grape'],
-		difficult: ['xylophone', 'quicksand'],
-	}
-
-	it('returns an array of length 10 for type "three"', () => {
-		const result = generateWords(wordsList, 'three')
-		expect(result.length).toEqual(10)
+	afterEach(() => {
+		vi.clearAllMocks()
 	})
 
-	it('returns an array of length 7 for type "four"', () => {
-		const result = generateWords(wordsList, 'four')
-		expect(result.length).toEqual(7)
-	})
-
-	it('returns an array of unique words', () => {
-		const result = generateWords(wordsList, 'five')
-		const uniqueWords = new Set(result)
-		expect(uniqueWords.size).toEqual(result.length)
-	})
-
-	it('returns an empty array when type is invalid', () => {
-		const result = generateWords(wordsList, 'invalid' as any)
+	it('returns an empty array when the type of word is not valid', () => {
+		const result = generateWords(mockList, 'invalid-type' as WordHeader)
 		expect(result).toEqual([])
 	})
 
-	it('returns all words if exercise length is greater than or equal to the number of words', () => {
-		const result = generateWords(wordListSmall, 'four')
-		expect(result.length).toEqual(wordListSmall['four'].length)
+	it('calls generateUniqueList function when type is "three" with second argument of 10', () => {
+		generateWords(mockList, 'three')
+		expect(generateUniqueList).toHaveBeenCalledWith(mockList['three'], 10)
 	})
-	it('returns mixed words when type is mix', () => {
-		const wordsList = { ...wordListSmall, mix: [] }
 
-		const words = generateWords(wordsList, 'mix')
+	it('calls generateUniqueList function when type is "four" with second argument of 7', () => {
+		generateWords(mockList, 'four')
+		expect(generateUniqueList).toHaveBeenCalledWith(mockList['four'], 7)
+	})
 
-		expect(getMixedWords).toHaveBeenCalledWith(wordsList)
-		expect(words).toEqual(mixedMock)
+	it('calls getMixedWords function when type is "mix"', () => {
+		generateWords(mockList, 'mix')
+		expect(getMixedWords).toHaveBeenCalledWith(mockList)
+	})
+
+	it('calls generateUniqueList function when type is "mix" with second argument of 6', () => {
+		generateWords(mockList, 'mix')
+		expect(generateUniqueList).toHaveBeenCalledWith([], 6)
 	})
 })

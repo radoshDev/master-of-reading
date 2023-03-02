@@ -1,6 +1,6 @@
 import type { WordsList, WordType } from '@/types/Task'
-import { getRandomIndex } from '@/helpers/getRandomIndex'
 import { getMixedWords } from '@/helpers/getMixedWords'
+import { generateUniqueList } from '@/helpers/generateUniqueList'
 
 export const generateWords = (list: WordsList, type: WordType): string[] => {
 	const wordsList: Record<WordType, string[]> = { ...list, mix: [] }
@@ -17,18 +17,5 @@ export const generateWords = (list: WordsList, type: WordType): string[] => {
 
 	if (!words) return []
 
-	if (words.length <= exerciseLength) return words
-
-	const selectedWords: Set<string> = new Set()
-
-	while (selectedWords.size !== exerciseLength) {
-		const randomIndex = getRandomIndex(words.length)
-		const word = words[randomIndex]
-
-		if (selectedWords.has(word)) continue
-
-		selectedWords.add(word)
-	}
-
-	return Array.from(selectedWords)
+	return generateUniqueList(words, exerciseLength)
 }
