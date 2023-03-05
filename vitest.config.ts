@@ -12,6 +12,14 @@ export default mergeConfig(
 			root: fileURLToPath(new URL('./', import.meta.url)),
 			coverage: {
 				all: true,
+				src: ['src'],
+				exclude: [
+					'src/main.ts',
+					'src/**/*.{test,spec}.ts',
+					'src/__tests__',
+					'src/router/index.ts',
+					'src/types',
+				],
 			},
 		},
 	})

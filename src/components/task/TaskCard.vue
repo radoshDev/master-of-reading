@@ -12,7 +12,8 @@ defineProps<{ task: Task }>()
 				:alt="task.img.name"
 				height="100%"
 				loading="eager"
-				fit="contain" />
+				fit="contain"
+				data-test="img" />
 		</q-card-section>
 		<q-card-section>
 			<div class="title">{{ task.title }}</div>

@@ -1,9 +1,9 @@
 import { getRandomIndex } from './getRandomIndex'
 
 export const generateUniqueList = <T>(list: T[], length: number): T[] => {
-	if (list.length <= length) return list
+	list = [...new Set(list)]
 
-	if (new Set(list).size < length) return list.slice(0, length)
+	if (list.length <= length) return list
 
 	const result: Set<T> = new Set()
 

@@ -9,6 +9,7 @@ export const ROUTE_NAMES = {
 	task: 'task',
 	pokemons: 'pokemons',
 	pokemon: 'pokemon',
+	notFound: 'not-found',
 } as const
 
 export const TASK_TYPE = {
