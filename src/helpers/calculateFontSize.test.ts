@@ -2,6 +2,9 @@ import { calculateFontSize } from '@/helpers/calculateFontSize'
 import { it, describe, expect } from 'vitest'
 
 describe('calculateFontSize', () => {
+	it('returns 45vw for a word with 1 characters', () => {
+		expect(calculateFontSize(1)).toBe('min(1200px, 60vw)')
+	})
 	it('returns 45vw for a word with 2 characters', () => {
 		expect(calculateFontSize(2)).toBe('min(600px, 45vw)')
 	})

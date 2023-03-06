@@ -1,6 +1,7 @@
 export const calculateFontSize = (wordLength: number): string => {
 	const desktopSize = Math.round(1200 / wordLength)
 	const sizeLookup: Record<number, string> = {
+		1: `min(${desktopSize}px, 60vw)`,
 		2: `min(${desktopSize}px, 45vw)`,
 		3: `min(${desktopSize}px, 39vw)`,
 		4: `min(${desktopSize}px, 30vw)`,

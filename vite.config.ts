@@ -7,13 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
-		vue({
-			template: {
-				compilerOptions: {
-					isCustomElement: tag => tag.startsWith('q-'),
-				},
-			},
-		}),
+		vue(),
 		vueJsx(),
 		VitePWA({
 			registerType: 'autoUpdate',
