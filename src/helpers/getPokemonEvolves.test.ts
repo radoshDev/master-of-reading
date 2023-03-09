@@ -1,5 +1,5 @@
 import type { Chain } from '@/types/Pokemon'
-import { getPokemonEvolves } from '../../helpers/getPokemonEvolves'
+import { getPokemonEvolves } from './getPokemonEvolves'
 import { it, describe, expect } from 'vitest'
 
 describe('getPokemonEvolves', () => {

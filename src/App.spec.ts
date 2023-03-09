@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
 import LayoutMain from '@/components/LayoutMain.vue'
 import { usePokemonStore } from '@/stores/pokemonStore'
-import App from '../App.vue'
+import App from './App.vue'
 
 // Mock usePokemonStore hook
 vi.mock('@/stores/pokemonStore', () => ({
