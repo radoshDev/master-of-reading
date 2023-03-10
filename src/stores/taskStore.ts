@@ -179,9 +179,9 @@ export const useTaskStore = defineStore('task', () => {
 				exerciseType.value as SyllableType
 			).generateSyllables(10)
 		}
-		if (taskType.value === 'words' && wordStore.words) {
+		if (taskType.value === 'words' && wordStore.words.data) {
 			exerciseScore.value.exercises = generateWords(
-				wordStore.words,
+				wordStore.words.data,
 				exerciseType.value as WordType
 			)
 		}
