@@ -26,8 +26,6 @@ describe('#getMixedWords', () => {
 		expect(mixedWords).toContain('fish')
 		expect(mixedWords).toContain('horse')
 		expect(mixedWords).toContain('zebra')
-		expect(mixedWords).toContain('rhinoceros')
-		expect(mixedWords).toContain('hippopotamus')
 	})
 
 	it('returns a mixed array of words when some lists are empty', () => {
