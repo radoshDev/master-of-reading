@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getPokemonImage } from '@/helpers/getPokemonImage'
 import type { Task } from '@/types/Task'
 
 defineProps<{ task: Task }>()
@@ -8,7 +9,7 @@ defineProps<{ task: Task }>()
 	<q-card class="task-card">
 		<q-card-section class="img-wrapper">
 			<q-img
-				:src="task.img.src"
+				:src="getPokemonImage(task.img.pokemonId)"
 				:alt="task.img.name"
 				height="100%"
 				loading="eager"

@@ -1,4 +1,4 @@
-import type { WordHeader, WordsList } from '@/types/Task'
+import type { WordType, WordsList } from '@/types/Task'
 import { it, describe, expect, vi, afterEach } from 'vitest'
 import { generateWords } from '@/services/generateWords'
 import { getMixedWords } from '@/helpers/getMixedWords'
@@ -21,7 +21,6 @@ describe('#generateWords', () => {
 		three: ['cat', 'dog', 'fly'],
 		four: ['bird', 'frog', 'lion'],
 		five: ['apple', 'banana', 'cherry'],
-		difficult: ['encyclopedia', 'rhythm', 'mnemonic'],
 	}
 
 	afterEach(() => {
@@ -29,7 +28,7 @@ describe('#generateWords', () => {
 	})
 
 	it('returns an empty array when the type of word is not valid', () => {
-		const result = generateWords(mockList, 'invalid-type' as WordHeader)
+		const result = generateWords(mockList, 'invalid-type' as WordType)
 		expect(result).toEqual([])
 	})
 

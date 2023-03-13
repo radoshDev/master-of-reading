@@ -2,9 +2,8 @@
 import { computed, onMounted } from 'vue'
 import ExercisesList from '@/components/task/ExercisesList.vue'
 import TaskBoard from '@/components/task/TaskBoard.vue'
-import { ROUTE_NAMES } from '@/constants'
+import { ROUTE_NAMES, TASKS } from '@/constants'
 import { useTaskStore } from '@/stores/taskStore'
-import { tasks } from '@/stores/taskStore'
 import { usePokemonStore } from '@/stores/pokemonStore'
 import { useWordStore } from '@/stores/wordStore'
 import { useQuasar } from 'quasar'
@@ -14,10 +13,10 @@ const pokemonStore = usePokemonStore()
 const wordStore = useWordStore()
 const $q = useQuasar()
 
-const exercise = computed(() => tasks[taskStore.taskType])
+const exercise = computed(() => TASKS[taskStore.taskType])
 
 const showContinueBtn = computed(
-	() => taskStore.exerciseScore?.exercises.length > 0
+	() => taskStore.exerciseScore?.exercises?.length > 0
 )
 
 function handleStartTask() {

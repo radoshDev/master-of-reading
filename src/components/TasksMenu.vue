@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { ROUTE_NAMES } from '@/constants'
-import { tasks } from '@/stores/taskStore'
+import { ROUTE_NAMES, TASKS } from '@/constants'
 import TaskCard from './task/TaskCard.vue'
 </script>
 
 <template>
 	<div class="tasks-menu">
 		<router-link
-			v-for="(task, type) in tasks"
+			v-for="(task, type) in TASKS"
 			:key="type"
 			:to="{ name: ROUTE_NAMES.task, params: { type } }"
 			class="task-wrapper">

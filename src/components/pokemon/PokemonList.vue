@@ -26,7 +26,7 @@ const pokemonsList = computed(() => {
 				<TaskCard
 					:task="{
 						title: pokemon.name,
-						img: { name: pokemon.name, src: pokemon.dreamworld },
+						img: { name: pokemon.name, pokemonId: pokemon.id },
 					}" />
 			</RouterLink>
 		</div>

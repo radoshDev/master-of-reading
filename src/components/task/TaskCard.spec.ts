@@ -1,12 +1,13 @@
-import TaskCard from '@/components/task/TaskCard.vue'
 import { mount } from '@vue/test-utils'
 import { it, describe, expect } from 'vitest'
+import TaskCard from '@/components/task/TaskCard.vue'
+import type { Task } from '@/types/Task'
 
 describe('TaskCard', () => {
-	const task = {
+	const task: Task = {
 		title: 'Test Task',
 		img: {
-			src: 'test.png',
+			pokemonId: 1,
 			name: 'Test Image',
 		},
 	}
@@ -25,7 +26,9 @@ describe('TaskCard', () => {
 		})
 
 		const img = wrapper.get('[data-test="img"]')
-		expect(img.attributes('src')).toMatch(task.img.src)
+		expect(img.attributes('src')).toMatch(
+			'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
+		)
 		expect(img.attributes('alt')).toMatch(task.img.name)
 	})
 })

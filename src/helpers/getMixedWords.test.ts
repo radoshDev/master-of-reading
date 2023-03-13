@@ -8,7 +8,6 @@ describe('#getMixedWords', () => {
 			three: [],
 			four: [],
 			five: [],
-			difficult: [],
 		}
 		const mixedWords = getMixedWords(wordsList)
 		expect(mixedWords).toEqual([])
@@ -19,7 +18,6 @@ describe('#getMixedWords', () => {
 			three: ['dog', 'cat'],
 			four: ['bird', 'fish'],
 			five: ['horse', 'zebra'],
-			difficult: ['rhinoceros', 'hippopotamus'],
 		}
 		const mixedWords = getMixedWords(wordsList)
 		expect(mixedWords).toContain('dog')
@@ -37,7 +35,6 @@ describe('#getMixedWords', () => {
 			three: ['dog', 'cat'],
 			four: [],
 			five: ['horse', 'zebra'],
-			difficult: [],
 		}
 		const mixedWords = getMixedWords(wordsList)
 		expect(mixedWords).toContain('dog')

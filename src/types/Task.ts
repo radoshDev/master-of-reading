@@ -1,9 +1,18 @@
-import type { TASK_TYPE } from '@/constants'
+export type LetterType = 'vowels' | 'consonants' | 'mix'
+export type SyllableType = 'vowelFirst' | 'consonantFirst' | 'mix'
+export type WordHeader = 'three' | 'four' | 'five'
+export type WordType = WordHeader | 'mix'
 
-export type TaskType = keyof typeof TASK_TYPE
+export type TasksType = {
+	letters: LetterType
+	syllables: SyllableType
+	words: WordType
+}
+
+export type TaskType = keyof TasksType
 
 type Image = {
-	src: string
+	pokemonId: number
 	name: string
 }
 
@@ -12,7 +21,13 @@ export type Task = {
 	img: Image
 }
 
-export type MainTask = Task & { subtasks: Record<string, Task> }
+export type MainTask<T extends string = string> = Task & {
+	subtasks: Record<T, Task>
+}
+
+export type Tasks = {
+	[P in keyof TasksType]: MainTask<TasksType[P]>
+}
 
 export type ExerciseScore = {
 	result: number
@@ -21,14 +36,8 @@ export type ExerciseScore = {
 	index: number
 }
 
-export type TasksScore = Record<TaskType, Record<string, ExerciseScore>>
-
-export type SyllableType = 'mix' | 'vowelFirst' | 'consonantFirst'
-
-export type WordHeader = 'three' | 'four' | 'five' | 'difficult'
+export type TasksScore = {
+	[P in keyof TasksType]: { [K in TasksType[P]]?: ExerciseScore }
+}
 
 export type WordsList = Record<WordHeader, string[]>
-
-export type WordType = WordHeader | 'mix'
-
-export type LetterType = 'vowels' | 'consonants' | 'mix'
