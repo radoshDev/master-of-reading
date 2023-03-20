@@ -2,6 +2,8 @@
 
 This is an application that help pre-school kids improve their reading skills in Ukrainian
 
+[Application](https://master-of-reading-radoshdev.vercel.app/)
+
 ## Used technologies
 1. [Vue.js](https://vuejs.org/) for build the application;
 2. [Vue router](https://router.vuejs.org/) for routing pages;
