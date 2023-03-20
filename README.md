@@ -1,52 +1,34 @@
-# .
+# Master of reading
 
-This template should help get you started developing with Vue 3 in Vite.
+This is an application that help pre-school kids improve their reading skills in Ukrainian
 
-## Recommended IDE Setup
+## Used technologies
+1. [Vue.js](https://vuejs.org/) for build the application;
+2. [Vue router](https://router.vuejs.org/) for routing pages;
+3. Modular SCSS for styling;
+4. Used [Pinia](https://pinia.vuejs.org/) for state management
+5. [Vitest](https://vitest.dev/) used for testing;
+6. Configured as a PWA;
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## How it works
 
-## Type Support for `.vue` Imports in TS
+### There are 3 level of reading:
+1. Letters
+2. Syllables
+3. Words
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+* Each level has its own complexity
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### Reading process
+* After starting a round (by pressing "Початок"), a text appears for reading.
+* At the end of each round, the child earns one coin.
+* The length of the round depends on the chosen difficulty (5 - 10 words/syllables/letters)
+* By default, the ability to speak a word in a synthetic voice is set
+* It is also possible to choose the case for letters (upper case by default)
+* By clicking on three dots in the upper right corner, there are ability to change the case and to turn off the sound.
+* You can also set the behavior for earning coins by clicking on a coin, select an action (add/subtract) and enter the initial amount.
+* After each completed round, a random Pokemon image will be shown
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+### Additional functionality for words
+* When you click on the icon "?", the explanation of the word on Wikipedia opens
+* When you click on the image icon, the image of this word is shown by searching in Google images
