@@ -22,7 +22,7 @@ const initialTasksScore: TasksScore =
 
 export const useTaskStore = defineStore('task', () => {
 	const wordStore = useWordStore()
-	const options = ref({ mute: false, upper: true, slideBack: false })
+	const options = ref({ mute: true, upper: false, slideBack: false })
 	const taskType = ref<TaskType>('letters')
 	const selectedExercise = reactive<TasksType>({
 		letters: 'consonants',

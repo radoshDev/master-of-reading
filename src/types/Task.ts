@@ -1,6 +1,6 @@
 export type LetterType = 'vowels' | 'consonants' | 'mix'
 export type SyllableType = 'vowelFirst' | 'consonantFirst' | 'mix'
-export type WordHeader = 'three' | 'four' | 'five'
+export type WordHeader = 'three' | 'four' | 'five' | 'six'
 export type WordType = WordHeader | 'mix'
 
 export type TasksType = {

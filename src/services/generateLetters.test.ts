@@ -1,8 +1,8 @@
+import { it, describe, expect, vi, afterEach } from 'vitest'
 import { consonants, vowels } from '@/constants'
 import { generateUniqueList } from '@/helpers/generateUniqueList'
 import { generateLetters } from '@/services/generateLetters'
 import type { LetterType } from '@/types/Task'
-import { it, describe, expect, vi, afterEach } from 'vitest'
 
 vi.mock('@/helpers/generateUniqueList', () => {
 	return {

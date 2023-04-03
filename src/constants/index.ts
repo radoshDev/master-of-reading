@@ -125,6 +125,13 @@ export const TASKS: Tasks = {
 					name: 'exeggcute',
 				},
 			},
+			six: {
+				title: '6 букв',
+				img: {
+					pokemonId: 73,
+					name: 'tentacruel',
+				},
+			},
 			mix: {
 				title: 'Змішано',
 				img: {

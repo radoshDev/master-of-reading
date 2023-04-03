@@ -2,10 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { getWords } from '@/api/wordsApi'
 import { csvParser } from '@/helpers/csvParser'
-
-export type WordHeader = 'three' | 'four' | 'five' | 'difficult'
-
-export type WordsList = Record<WordHeader, string[]>
+import type { WordHeader, WordsList } from '@/types/Task'
 
 export const useWordStore = defineStore('word', () => {
 	const words = ref<WordsList | null>(null)

@@ -19,11 +19,12 @@ vi.mock('@/helpers/csvParser', () => {
 })
 
 describe('#wordStore', async () => {
-	const mockWordsCsv = 'three,four,five,difficult\nfoo,bar,baz,qux\n'
+	const mockWordsCsv = 'three,four,five,six\nfoo,bar,baz,qux\n'
 	const mockWordsList: WordsList = {
-		three: ['foo'],
-		four: ['bar'],
-		five: ['baz'],
+		three: [],
+		four: [],
+		five: [],
+		six: [],
 	}
 
 	beforeEach(() => {

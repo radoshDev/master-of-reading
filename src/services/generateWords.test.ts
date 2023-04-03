@@ -21,6 +21,7 @@ describe('#generateWords', () => {
 		three: ['cat', 'dog', 'fly'],
 		four: ['bird', 'frog', 'lion'],
 		five: ['apple', 'banana', 'cherry'],
+		six: ['blabla', 'banana'],
 	}
 
 	afterEach(() => {
