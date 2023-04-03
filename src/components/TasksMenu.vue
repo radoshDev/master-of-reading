@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ROUTE_NAMES, TASKS } from '@/constants'
 import TaskCard from './task/TaskCard.vue'
+import { CleanStorageBtn } from './ui/buttons'
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import TaskCard from './task/TaskCard.vue'
 			<TaskCard :task="task" class="menu-task" />
 		</router-link>
 	</div>
+	<CleanStorageBtn class="clean-btn" />
 </template>
 
 <style lang="scss" scoped>
@@ -46,5 +48,10 @@ import TaskCard from './task/TaskCard.vue'
 			}
 		}
 	}
+}
+.clean-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
 </style>
